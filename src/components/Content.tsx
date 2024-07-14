@@ -1,18 +1,21 @@
-import ToDoCard from "./ToDoCard";
-import type { ToDo } from "../types/ToDo";
+import ItemCard from "./ContentCard";
+import type { Item } from "../types/Item";
 
 type ContentProps = {
-  toDos: ToDo[];
-  setToDos: React.Dispatch<React.SetStateAction<ToDo[]>>;
+  items: Item[];
+  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
+  current: "To Do" | "In Progress" | "Done" | "Backlog" | "All";
 };
 
-const Content: React.FC<ContentProps> = ({ toDos, setToDos }) => {
+const Content: React.FC<ContentProps> = ({ items, setItems, current }) => {
   return (
-    <div className="w-[70%] flex flex-col justify-start align-top gap-6">
-      {toDos.map((item: ToDo) => {
-        return <ToDoCard key={item.id} {...item} />;
-      })}
-    </div>
+    <ul className="w-[70%] flex flex-col justify-start align-top gap-6">
+      {items.map((item: Item) =>
+        item.status === current || current === "All" ? (
+          <ItemCard key={item.id} {...item} />
+        ) : null
+      )}
+    </ul>
   );
 };
 

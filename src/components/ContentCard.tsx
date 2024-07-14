@@ -8,9 +8,9 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 
-import type { ToDo } from "../types/ToDo";
+import type { Item } from "../types/Item";
 
-const ToDoCard = ({
+const ContentCard = ({
   title,
   description,
   assignee,
@@ -18,7 +18,7 @@ const ToDoCard = ({
   priority,
   createdDate,
   dueDate,
-}: ToDo) => {
+}: Item) => {
   return (
     <Card className="w-[90%]">
       <CardHeader className="flex flex-row justify-center align-middle">
@@ -44,4 +44,4 @@ const ToDoCard = ({
   );
 };
 
-export default ToDoCard;
+export default ContentCard;
