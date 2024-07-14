@@ -20,22 +20,25 @@ const ToDoCard = ({
   dueDate,
 }: ToDo) => {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="w-[90%]">
+      <CardHeader className="flex flex-row justify-center align-middle">
         <CardTitle>{title}</CardTitle>
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-col justify-center align-middle">
           <p className="text-lg">{assignee}</p>
           <p>{status}</p>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-row">
+      <CardContent className="flex flex-col">
         <p>{priority}</p>
         <p>{createdDate}</p>
         <p>{dueDate}</p>
         <CardDescription>{description}</CardDescription>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-row justify-between">
         <Button>Mark as done</Button>
+        <Button>Delete</Button>
+        <Button>Edit</Button>
+        <Button>Backlog</Button>
       </CardFooter>
     </Card>
   );

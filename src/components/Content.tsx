@@ -1,4 +1,3 @@
-import React from "react";
 import ToDoCard from "./ToDoCard";
 import type { ToDo } from "../types/ToDo";
 
@@ -9,7 +8,7 @@ type ContentProps = {
 
 const Content: React.FC<ContentProps> = ({ toDos, setToDos }) => {
   return (
-    <div className="content">
+    <div className="w-[70%] flex flex-col justify-start align-top gap-6">
       {toDos.map((item: ToDo) => {
         return <ToDoCard key={item.id} {...item} />;
       })}

@@ -2,21 +2,19 @@ import { useState } from "react";
 import "./App.css";
 import data from "./data/data.json";
 import Navbar from "./components/Navbar";
-import Content from "./components/Content";
-import Sidebar from "./components/Sidebar";
+import Main from "./components/Main";
 import Footer from "./components/Footer";
 import type { ToDo } from "./types/ToDo";
 
 function App() {
   const [theme, setTheme] = useState("light");
-  const [toDos, setToDos] = useState(data);
+  const [toDos, setToDos] = useState<ToDo[]>(data);
   return (
-    <div className={`app ${theme}`}>
+    <div
+      className={`${theme} flex flex-col justify-center align-middle h-[95vh] py-[2.5vh] w-[95vw] px-[2.5vw]`}
+    >
       <Navbar />
-      <main className="main">
-        <Sidebar />
-        <Content toDos={toDos} setToDos={setToDos} />
-      </main>
+      <Main toDos={toDos} setToDos={setToDos} />
       <Footer />
     </div>
   );

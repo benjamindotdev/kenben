@@ -1,11 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: ["./**/*.{html,tsx}", "./components/**/*.{html,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{html,tsx}",
+    "./src/components/**/*.{html,tsx}",
+    "./src/components/ui/**/*.{html,tsx}",
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    {
+      tailwindcss: { config: "./tailwindcss-config.js" },
+    },
+  ],
   compilerOptions: {
     baseUrl: ".",
     paths: {
