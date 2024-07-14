@@ -8,15 +8,7 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 
-type ToDo = {
-  title: string;
-  description: string;
-  assignee: string;
-  status: string;
-  priority: string;
-  createdDate: string;
-  dueDate: string;
-};
+import type { ToDo } from "../types/ToDo";
 
 const ToDoCard = ({
   title,
@@ -32,7 +24,7 @@ const ToDoCard = ({
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <div className="flex flex-row justify-center">
-          <p>{assignee}</p>
+          <p className="text-lg">{assignee}</p>
           <p>{status}</p>
         </div>
       </CardHeader>
