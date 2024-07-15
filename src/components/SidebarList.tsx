@@ -1,4 +1,14 @@
-import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import MiniButton from "./MiniButton";
+import { Check, Delete } from "lucide-react";
 import type { Item } from "../types/Item";
 
 type SidebarListProps = {
@@ -9,14 +19,37 @@ type SidebarListProps = {
 
 const SidebarList: React.FC<SidebarListProps> = ({ type, state, setState }) => {
   return (
-    <div className="h-[25%]">
-      <h2>{type}</h2>
-      <ul>
+    <Card className="h-[25%]">
+      <CardHeader>
+        <CardTitle>{type}</CardTitle>
+      </CardHeader>
+      <CardContent>
         {state.map((item: Item) => {
-          return <li key={item.id}>{item.title}</li>;
+          return (
+            <CardDescription
+              className="p-2 rounded-xl hover:text-black hover:bg-white cursor-pointer"
+              key={item.id}
+            >
+              {item.title}
+              <div className="flex flex-row justify-end gap-2">
+                <MiniButton type={"Edit"} />
+                <MiniButton type={"Delete"} />
+                <MiniButton type={"Done"} />
+              </div>
+            </CardDescription>
+          );
         })}
-      </ul>
-    </div>
+      </CardContent>
+      <CardFooter>
+        <Button
+          onClick={() => {
+            setState([]);
+          }}
+        >
+          {type === "Done" ? <Delete /> : <Check />}
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 
