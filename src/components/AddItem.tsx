@@ -37,9 +37,9 @@ const AddItem: React.FC<AddItemProps> = ({ type, state, setState }) => {
     setShow(false);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       {show ? (
-        <>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Title"
@@ -71,7 +71,7 @@ const AddItem: React.FC<AddItemProps> = ({ type, state, setState }) => {
             onChange={(e) => setDueDate(e.target.value)}
           />
           <Button type="submit">Submit</Button>
-        </>
+        </form>
       ) : (
         <span
           className="p-2 rounded-xl cursor-pointer opacity-50 hover:opacity-100"
@@ -80,7 +80,7 @@ const AddItem: React.FC<AddItemProps> = ({ type, state, setState }) => {
           <Plus size={16} />
         </span>
       )}
-    </form>
+    </>
   );
 };
 

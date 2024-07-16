@@ -10,10 +10,8 @@ type SidebarProps = {
   setDone: React.Dispatch<React.SetStateAction<Item[]>>;
   backlog: Item[];
   setBacklog: React.Dispatch<React.SetStateAction<Item[]>>;
-  current: "To Do" | "In Progress" | "Done" | "Backlog" | "All";
-  setCurrent: React.Dispatch<
-    React.SetStateAction<"To Do" | "In Progress" | "Done" | "Backlog" | "All">
-  >;
+  items: Item[];
+  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
 };
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -25,19 +23,25 @@ const Sidebar: React.FC<SidebarProps> = ({
   setDone,
   backlog,
   setBacklog,
-  current,
-  setCurrent,
+  items,
+  setItems,
 }) => {
   return (
     <div className="w-[30%] flex flex-col gap-2 justify-between">
-      <SidebarList type="Done" state={done} setState={setDone} />
+      <SidebarList type="Done" url="done" state={done} setState={setDone} />
       <SidebarList
         type="In Progress"
+        url="inprogress"
         state={inProgress}
         setState={setInProgress}
       />
-      <SidebarList type="To Do" state={toDos} setState={setToDos} />
-      <SidebarList type="Backlog" state={backlog} setState={setBacklog} />
+      <SidebarList type="To Do" url="todo" state={toDos} setState={setToDos} />
+      <SidebarList
+        type="Backlog"
+        url="backlog"
+        state={backlog}
+        setState={setBacklog}
+      />
     </div>
   );
 };
