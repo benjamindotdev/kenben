@@ -29,6 +29,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+
 import { Toaster } from "@/components/ui/toaster";
 
 type AddItemFormProps = {
@@ -82,7 +84,10 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(formSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(formSubmit)}
+        className="h-full px-6 pb-6 flex flex-col justify-start gap-6"
+      >
         <FormField
           control={form.control}
           name={"title"}
@@ -92,7 +97,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
               <FormControl>
                 <Input id="title" {...field} placeholder="Title" />
               </FormControl>
-              <FormDescription>Name of task?</FormDescription>
+              <FormDescription></FormDescription>
             </FormItem>
           )}
         />
@@ -103,9 +108,13 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
             <FormItem>
               <FormLabel htmlFor="description">Description</FormLabel>
               <FormControl>
-                <Input id="description" {...field} placeholder="Description" />
+                <Textarea
+                  id="description"
+                  {...field}
+                  placeholder="Description"
+                />
               </FormControl>
-              <FormDescription>What's the task?</FormDescription>
+              <FormDescription></FormDescription>
             </FormItem>
           )}
         />
@@ -132,7 +141,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
                   </SelectContent>
                 </Select>
               </FormControl>
-              <FormDescription>Add to</FormDescription>
+              <FormDescription></FormDescription>
             </FormItem>
           )}
         />
@@ -157,7 +166,7 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
                   </SelectContent>
                 </Select>
               </FormControl>
-              <FormDescription>Priority</FormDescription>
+              <FormDescription></FormDescription>
             </FormItem>
           )}
         />
@@ -174,13 +183,13 @@ const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
                   </PopoverTrigger>
                   <PopoverContent>
                     <Calendar
-                      selected={new Date(field.value.toLocaleString())}
+                      selected={new Date(field.value.toLocaleString())} /////////
                       onSelect={field.onChange}
                     />
                   </PopoverContent>
                 </Popover>
               </FormControl>
-              <FormDescription>Due by:</FormDescription>
+              <FormDescription></FormDescription>
             </FormItem>
           )}
         />
