@@ -26,7 +26,7 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
     }
   };
   return (
-    <div className="flex flex-row justify-start gap-2 ease-in-out transition-all ">
+    <div className="flex flex-row justify-start gap-2 ease-in-out transition-all hover:text-pink-200">
       <span onClick={() => handleClick("Done")}>
         <MiniButton type={"Done"} />
       </span>

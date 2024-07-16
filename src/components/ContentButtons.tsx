@@ -15,7 +15,6 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
     if (itemToUpdate) {
       if (status === "Delete") {
         setItems(filteredItems);
-        return;
       } else {
         const updatedItem = {
           ...itemToUpdate,
@@ -30,7 +29,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
     <div className="flex flex-row justify-between ">
       <Button
         onClick={() => handleClick("Done")}
-        className="flex flex-row gap-2 w-[23%] hover:text-pink-400 "
+        className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Done
         <MiniButton type="Done" />
@@ -39,19 +38,19 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
 
       <Button
         onClick={() => handleClick("Delete")}
-        className="flex flex-row gap-2 w-[23%] hover:text-pink-900"
+        className="flex flex-row gap-2 w-[23%] hover:text-red-600 transition-all ease-in-out duration-300"
       >
         Delete
         <MiniButton type="Delete" />
         <Link to="/todo" />
       </Button>
-      <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-400">
+      <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300">
         Edit
         <MiniButton type="Edit" />
       </Button>
       <Button
         onClick={() => handleClick("Backlog")}
-        className="flex flex-row gap-2 w-[23%] hover:text-pink-400"
+        className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Backlog
         <MiniButton type="Backlog" />

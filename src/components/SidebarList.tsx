@@ -32,7 +32,7 @@ const SidebarList: React.FC<SidebarListProps> = ({
           <NavLink
             to={`/${url}`}
             className={({ isActive }) =>
-              isActive
+              isActive && active === type
                 ? `flex flex-row gap-6 text-pink-300 hover:text-pink-400 animate-pulse`
                 : `flex flex-row gap-6 text-white hover:text-pink-500 opacity-50`
             }

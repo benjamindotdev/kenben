@@ -19,7 +19,8 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, state, setState }) => {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      {item.title}
+      <p className="italic hover:text-pink-200">{item.title}</p>
+
       {show && <SidebarButtons itemId={item.id} />}
     </CardDescription>
   );

@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import ContentList from "./ContentList";
 import ContentFullPage from "./ContentFullPage";
 import { useItems } from "@/context/ItemsContext";
+import AddItem from "./AddItem";
+import AddItemForm from "./AddItemForm";
 
 const Content = () => {
   const {
@@ -53,6 +55,7 @@ const Content = () => {
         >
           <Route path={`:id`} element={<ContentFullPage />} />
         </Route>
+        <Route path="add" element={<AddItemForm />} />
       </Routes>
     </div>
   );
