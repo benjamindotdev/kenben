@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import { ItemsProvider } from "@/context/ItemsContext";
+import { ActiveProvider } from "@/context/ActiveContext";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
-import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -12,7 +12,9 @@ function App() {
     >
       <ItemsProvider>
         <Navbar />
-        <Main />
+        <ActiveProvider>
+          <Main />
+        </ActiveProvider>
       </ItemsProvider>
     </div>
   );

@@ -74,4 +74,4 @@ const useItems = () => {
   return context;
 };
 
-export { ItemsContext, ItemsProvider, useItems };
+export { ItemsProvider, useItems };

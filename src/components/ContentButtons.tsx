@@ -9,31 +9,27 @@ type ContentButtonsProps = {
 
 const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
   const { items, setItems } = useItems();
-  const item = items.find((item) => item.id === itemId);
-  const handleDone = () => {
-    // Filter out the item that matches itemId
+  const handleClick = (status: string) => {
     const filteredItems = items.filter((item) => item.id !== itemId);
-
-    // Find the item to update
     const itemToUpdate = items.find((item) => item.id === itemId);
-
-    // Check if the item exists
     if (itemToUpdate) {
-      // Update the item and add it to the filteredItems array
-      const updatedItem = {
-        ...itemToUpdate,
-        status: "Done",
-        doneDate: new Date().toDateString(),
-      };
-      setItems([...filteredItems, updatedItem]);
+      if (status === "Delete") {
+        setItems(filteredItems);
+        return;
+      } else {
+        const updatedItem = {
+          ...itemToUpdate,
+          status: status,
+          doneDate: new Date().toDateString(),
+        };
+        setItems([...filteredItems, updatedItem]);
+      }
     }
-
-    // Navigate to the /done page
   };
   return (
     <div className="flex flex-row justify-between ">
       <Button
-        onClick={() => handleDone()}
+        onClick={() => handleClick("Done")}
         className="flex flex-row gap-2 w-[23%] hover:text-pink-400 "
       >
         Done
@@ -41,17 +37,25 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
         <Link to="/done" />
       </Button>
 
-      <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-900">
+      <Button
+        onClick={() => handleClick("Delete")}
+        className="flex flex-row gap-2 w-[23%] hover:text-pink-900"
+      >
         Delete
         <MiniButton type="Delete" />
+        <Link to="/todo" />
       </Button>
       <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-400">
         Edit
         <MiniButton type="Edit" />
       </Button>
-      <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-400">
+      <Button
+        onClick={() => handleClick("Backlog")}
+        className="flex flex-row gap-2 w-[23%] hover:text-pink-400"
+      >
         Backlog
         <MiniButton type="Backlog" />
+        <Link to="/backlog" />
       </Button>
     </div>
   );

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CardDescription } from "./ui/card";
 import MiniButton from "./MiniButton";
 import type { Item } from "../types/Item";
+import SidebarButtons from "./SidebarButtons";
 
 type SidebarItemProps = {
   item: Item;
@@ -19,14 +20,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, state, setState }) => {
       onMouseLeave={() => setShow(false)}
     >
       {item.title}
-      {show && (
-        <div className="flex flex-row justify-start gap-2 ease-in-out transition-all ">
-          <MiniButton type={"Edit"} />
-          <MiniButton type={"Delete"} />
-          <MiniButton type={"Done"} />
-          <MiniButton type={"Backlog"} />
-        </div>
-      )}
+      {show && <SidebarButtons itemId={item.id} />}
     </CardDescription>
   );
 };

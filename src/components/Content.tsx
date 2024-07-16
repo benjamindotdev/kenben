@@ -1,33 +1,21 @@
 import { Routes, Route } from "react-router-dom";
 import ContentList from "./ContentList";
-import type { Item } from "../types/Item";
 import ContentFullPage from "./ContentFullPage";
+import { useItems } from "@/context/ItemsContext";
 
-type ContentProps = {
-  toDos: Item[];
-  setToDos: React.Dispatch<React.SetStateAction<Item[]>>;
-  inProgress: Item[];
-  setInProgress: React.Dispatch<React.SetStateAction<Item[]>>;
-  done: Item[];
-  setDone: React.Dispatch<React.SetStateAction<Item[]>>;
-  backlog: Item[];
-  setBacklog: React.Dispatch<React.SetStateAction<Item[]>>;
-  items: Item[];
-  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
-};
-
-const Content: React.FC<ContentProps> = ({
-  toDos,
-  setToDos,
-  inProgress,
-  setInProgress,
-  done,
-  setDone,
-  backlog,
-  setBacklog,
-  items,
-  setItems,
-}) => {
+const Content = () => {
+  const {
+    items,
+    setItems,
+    toDos,
+    setToDos,
+    inProgress,
+    setInProgress,
+    done,
+    setDone,
+    backlog,
+    setBacklog,
+  } = useItems();
   return (
     <div className="w-[70%]">
       <Routes>

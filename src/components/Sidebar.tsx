@@ -1,33 +1,20 @@
+import { useItems } from "../context/ItemsContext";
 import type { Item } from "../types/Item";
 import SidebarList from "./SidebarList";
 
-type SidebarProps = {
-  toDos: Item[];
-  setToDos: React.Dispatch<React.SetStateAction<Item[]>>;
-  inProgress: Item[];
-  setInProgress: React.Dispatch<React.SetStateAction<Item[]>>;
-  done: Item[];
-  setDone: React.Dispatch<React.SetStateAction<Item[]>>;
-  backlog: Item[];
-  setBacklog: React.Dispatch<React.SetStateAction<Item[]>>;
-  items: Item[];
-  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
-};
-
-const Sidebar: React.FC<SidebarProps> = ({
-  toDos,
-  setToDos,
-  inProgress,
-  setInProgress,
-  done,
-  setDone,
-  backlog,
-  setBacklog,
-  items,
-  setItems,
-}) => {
+const Sidebar = () => {
+  const {
+    toDos,
+    setToDos,
+    inProgress,
+    setInProgress,
+    done,
+    setDone,
+    backlog,
+    setBacklog,
+  } = useItems();
   return (
-    <div className="w-[30%] flex flex-col gap-2 justify-between">
+    <div className="w-[30%] flex flex-col gap-2 justify-start">
       <SidebarList type="Done" url="done" state={done} setState={setDone} />
       <SidebarList
         type="In Progress"
