@@ -1,14 +1,19 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Button } from "./ui/button";
-import MiniButton from "./MiniButton";
-import { Check, Delete } from "lucide-react";
+import SidebarItem from "./SidebarItem";
+import {
+  Check,
+  Delete,
+  ListTodo,
+  ListChecks,
+  Glasses,
+  History,
+} from "lucide-react";
 import type { Item } from "../types/Item";
 
 type SidebarListProps = {
@@ -19,36 +24,30 @@ type SidebarListProps = {
 
 const SidebarList: React.FC<SidebarListProps> = ({ type, state, setState }) => {
   return (
-    <Card className="h-[25%]">
+    <Card className="h-[25%] opacity-50 blur-[1px] hover:opacity-100 hover:blur-none transition-blur transition-opacity hover:ease-in duration-300">
       <CardHeader>
-        <CardTitle>{type}</CardTitle>
+        <span className="flex flex-row gap-6">
+          {type === "To Do" && <ListTodo size={24} />}
+          {type === "Done" && <ListChecks size={24} />}
+          {type === "In Progress" && <Glasses size={24} />}
+          {type === "Backlog" && <History size={24} />}
+
+          <CardTitle>{type}</CardTitle>
+        </span>
       </CardHeader>
       <CardContent>
         {state.map((item: Item) => {
           return (
-            <CardDescription
-              className="p-2 rounded-xl hover:text-black hover:bg-white cursor-pointer"
+            <SidebarItem
               key={item.id}
-            >
-              {item.title}
-              <div className="flex flex-row justify-end gap-2">
-                <MiniButton type={"Edit"} />
-                <MiniButton type={"Delete"} />
-                <MiniButton type={"Done"} />
-              </div>
-            </CardDescription>
+              item={item}
+              state={state}
+              setState={setState}
+            />
           );
         })}
       </CardContent>
-      <CardFooter>
-        <Button
-          onClick={() => {
-            setState([]);
-          }}
-        >
-          {type === "Done" ? <Delete /> : <Check />}
-        </Button>
-      </CardFooter>
+      <CardFooter></CardFooter>
     </Card>
   );
 };

@@ -30,13 +30,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div className="w-[30%] flex flex-col gap-2 justify-between">
-      <SidebarList type="To Do" state={toDos} setState={setToDos} />
+      <SidebarList type="Done" state={done} setState={setDone} />
       <SidebarList
         type="In Progress"
         state={inProgress}
         setState={setInProgress}
       />
-      <SidebarList type="Done" state={done} setState={setDone} />
+      <SidebarList type="To Do" state={toDos} setState={setToDos} />
       <SidebarList type="Backlog" state={backlog} setState={setBacklog} />
     </div>
   );
