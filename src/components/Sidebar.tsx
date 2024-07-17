@@ -13,7 +13,7 @@ const Sidebar = () => {
     setBacklog,
   } = useItems();
   return (
-    <div className="w-[30%] flex flex-col gap-2 justify-start">
+    <div className="w-[25%] flex flex-col gap-2 justify-start">
       <SidebarList type="Done" url="done" state={done} setState={setDone} />
       <SidebarList
         type="In Progress"

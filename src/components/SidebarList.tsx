@@ -27,7 +27,7 @@ const SidebarList: React.FC<SidebarListProps> = ({
   const { active, setActive } = useActive();
   return (
     <div onClick={() => setActive(type)}>
-      <Card className="opacity-50 blur-[1px] hover:opacity-100 hover:blur-none transition-blur transition-opacity hover:ease-in duration-300">
+      <Card className="opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double">
         <CardHeader>
           <NavLink
             to={`/${url}`}

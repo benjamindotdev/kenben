@@ -7,7 +7,7 @@ import AddItemForm from "./AddItemForm";
 const Content = () => {
   const { items, toDos, inProgress, done, backlog } = useItems();
   return (
-    <div className="w-[70%]">
+    <div className="w-[65%]">
       <Routes>
         <Route path="/" element={<ContentList items={items} />} />
         <Route path={`/todo`} element={<ContentList items={toDos} />}>

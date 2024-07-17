@@ -7,7 +7,7 @@ type ContentListProps = {
 
 const ContentList: React.FC<ContentListProps> = ({ items }) => {
   return (
-    <ul className="h-[100%] flex flex-col justify-start align-top gap-6 flex-nowrap blur-[1px] hover:blur-0">
+    <ul className="h-[100%] flex flex-col justify-start align-top gap-2 overflow-y-scroll opacity-50 hover:opacity-100 ">
       {items.map((item: Item) => (
         <ContentItem key={item.id} item={item} />
       ))}

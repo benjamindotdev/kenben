@@ -16,8 +16,11 @@ type ContentCardProps = {
 
 const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
   return (
-    <Link to={item.id} className="text-white hover:text-white">
-      <Card className="opacity-50 hover:opacity-100">
+    <Link
+      to={item.id}
+      className="text-white hover:text-white transition-all hover:ease-in duration-300"
+    >
+      <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double">
         <CardHeader className="flex flex-row justify-center align-middle">
           <CardTitle>{item.title}</CardTitle>
           <div className="flex flex-row justify-start align-baseline gap-2">
