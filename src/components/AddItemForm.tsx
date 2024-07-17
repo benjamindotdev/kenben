@@ -33,10 +33,6 @@ import { v4 as uuidv4 } from "uuid";
 import { Toaster } from "@/components/ui/toaster";
 import { useParams } from "react-router-dom";
 
-type AddItemFormProps = {
-  type: "To Do" | "In Progress" | "Done" | "Backlog";
-};
-
 const itemSchema = z.object({
   id: z.string(),
   title: z
@@ -60,7 +56,7 @@ const itemSchema = z.object({
   dueDate: z.string(),
 });
 
-const AddItemForm: React.FC<AddItemFormProps> = () => {
+const AddItemForm = () => {
   const { items, setItems } = useItems();
   const type = useParams().type?.replace(/\+/g, " ");
 
