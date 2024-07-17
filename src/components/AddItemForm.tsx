@@ -29,11 +29,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-
+import { v4 as uuidv4 } from "uuid";
 import { Toaster } from "@/components/ui/toaster";
+import { useParams } from "react-router-dom";
 
 type AddItemFormProps = {
-  type?: "To Do" | "In Progress" | "Done" | "Backlog";
+  type: "To Do" | "In Progress" | "Done" | "Backlog";
 };
 
 const itemSchema = z.object({
@@ -59,17 +60,18 @@ const itemSchema = z.object({
   dueDate: z.string(),
 });
 
-const AddItemForm: React.FC<AddItemFormProps> = ({ type }) => {
+const AddItemForm: React.FC<AddItemFormProps> = () => {
   const { items, setItems } = useItems();
+  const type = useParams().type?.replace(/\+/g, " ");
 
   const form = useForm<z.infer<typeof itemSchema>>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
-      id: Math.random().toString(36).substr(2, 9),
+      id: uuidv4(),
       title: "",
       description: "",
       assignee: "You",
-      status: type || "To Do",
+      status: type,
       priority: "",
       createdDate: `${new Date().toDateString()}`,
       dueDate: "",

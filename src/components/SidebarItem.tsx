@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { CardDescription } from "./ui/card";
-import MiniButton from "./MiniButton";
 import type { Item } from "../types/Item";
 import SidebarButtons from "./SidebarButtons";
 
 type SidebarItemProps = {
   item: Item;
-  state: Item[];
-  setState: React.Dispatch<React.SetStateAction<Item[]>>;
+  type: "To Do" | "In Progress" | "Done" | "Backlog";
 };
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ item, state, setState }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ item, type }) => {
   const [show, setShow] = useState<boolean>(false);
   return (
     <CardDescription
@@ -19,7 +17,15 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, state, setState }) => {
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >
-      <p className="italic hover:text-pink-200">{item.title}</p>
+      <p
+        className={`hover:text-pink-200 flex before:pr-2 before:text-pink-300 transition-all ease-in duration-300 
+          ${type === "Done" && "before:content-['✔']"}
+          ${type === "To Do" && "before:content-['*']"}
+          ${type === "In Progress" && "before:content-['>']"}
+          ${type === "Backlog" && "before:content-['...']"}`}
+      >
+        {item.title}
+      </p>
 
       {show && <SidebarButtons itemId={item.id} />}
     </CardDescription>

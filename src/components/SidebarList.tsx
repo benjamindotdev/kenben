@@ -8,8 +8,9 @@ import {
 import SidebarItem from "./SidebarItem";
 import { useActive } from "../context/ActiveContext";
 import { ListTodo, ListChecks, Glasses, History } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import type { Item } from "../types/Item";
+import SidebarAddItem from "./SidebarAddItem";
 
 type SidebarListProps = {
   type: "To Do" | "In Progress" | "Done" | "Backlog";
@@ -26,17 +27,20 @@ const SidebarList: React.FC<SidebarListProps> = ({
 }) => {
   const { active, setActive } = useActive();
   return (
-    <div onClick={() => setActive(type)}>
-      <Card className="opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double">
-        <CardHeader>
-          <NavLink
-            to={`/${url}`}
-            className={({ isActive }) =>
-              isActive && active === type
-                ? `flex flex-row gap-6 text-pink-300 hover:text-pink-400 animate-pulse`
-                : `flex flex-row gap-6 text-white hover:text-pink-500 opacity-50`
-            }
-          >
+    <Link className="" to={`/${url}`} onClick={() => setActive(type)}>
+      <Card
+        className={`opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double ${
+          active === type &&
+          "outline-white outline-double outline-offset-1 opacity-100 bg-slate-800"
+        }`}
+      >
+        <CardHeader
+          className={`h-[20%] text-white hover:text-pink-300   ${
+            active === type &&
+            "text-pink-300 hover:text-pink-300 animate-pulse duration-1000 ease-in-out"
+          }`}
+        >
+          <span className="flex flex-row gap-2">
             <span className="flex flex-row">
               <sup className="text-pink-400 font-bold">
                 {state.length > 0 ? state.length : " "}
@@ -46,25 +50,19 @@ const SidebarList: React.FC<SidebarListProps> = ({
               {type === "In Progress" && <Glasses size={24} />}
               {type === "Backlog" && <History size={24} />}
             </span>
-
             <CardTitle>{type}</CardTitle>
-          </NavLink>
+          </span>
         </CardHeader>
-        <CardContent>
+        <CardContent className="h-[60%] text-white overflow-y-scroll">
           {state.map((item: Item) => {
-            return (
-              <SidebarItem
-                key={item.id}
-                item={item}
-                state={state}
-                setState={setState}
-              />
-            );
+            return <SidebarItem key={item.id} item={item} type={type} />;
           })}
         </CardContent>
-        <CardFooter></CardFooter>
+        <CardFooter className="h-[20%]">
+          {active === type && <SidebarAddItem type={type} />}
+        </CardFooter>
       </Card>
-    </div>
+    </Link>
   );
 };
 

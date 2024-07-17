@@ -11,3 +11,10 @@
   margin: 0;
   padding: 0;
 }
+
+.navbar__title {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: pink;
+}
