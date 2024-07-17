@@ -11,10 +11,11 @@ import {
 import ContentButtons from "./ContentButtons";
 
 const ContentFullPage = () => {
+  const { items } = useItems();
   const { paramId } = useParams();
   console.log(paramId);
-  const { items } = useItems();
   const item = items.find((item) => item.id === paramId);
+  console.log(item);
   return (
     <>
       {item && (

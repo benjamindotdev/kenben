@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
+  darkMode: "class",
   content: [
     "./index.html",
     "./src/**/*.{html,tsx}",
@@ -8,7 +9,15 @@ export default {
     "./src/components/ui/**/*.{html,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "ffc8dd",
+        secondary: "003049",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
+    },
   },
   plugins: [
     {

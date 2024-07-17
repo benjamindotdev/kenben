@@ -6,19 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Button } from "./ui/button";
-import MiniButton from "./MiniButton";
-
 import type { Item } from "../types/Item";
 import { Link } from "react-router-dom";
 import ContentButtons from "./ContentButtons";
 
 type ContentCardProps = {
   item: Item;
-  setItems: React.Dispatch<React.SetStateAction<Item[]>>;
 };
 
-const ContentCard: React.FC<ContentCardProps> = ({ item, setItems }) => {
+const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
   return (
     <Link to={item.id} className="text-white hover:text-white">
       <Card className="opacity-50 hover:opacity-100">

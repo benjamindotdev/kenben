@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import { ItemsProvider } from "@/context/ItemsContext";
 import { ActiveProvider } from "@/context/ActiveContext";

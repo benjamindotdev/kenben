@@ -1,5 +1,4 @@
 import { useItems } from "../context/ItemsContext";
-import type { Item } from "../types/Item";
 import SidebarList from "./SidebarList";
 
 const Sidebar = () => {
