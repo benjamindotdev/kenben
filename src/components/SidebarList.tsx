@@ -28,15 +28,14 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
   };
   return (
     <Card
-      //CANNOT HAVE HANDLECLICK HERE
-      className={`opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double hover:cursor-pointer ${
+      className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double hover:cursor-pointer ${
         active === status &&
         "outline-white outline-double outline-offset-1 opacity-100 bg-slate-800"
       }`}
     >
       <CardHeader
         onClick={handleClick}
-        className={`h-[20%] text-white hover:text-pink-300   ${
+        className={` text-white hover:text-pink-300   ${
           active === status &&
           "text-pink-300 hover:text-pink-300 animate-pulse duration-1000 ease-in-out"
         }`}
@@ -54,14 +53,18 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
           <CardTitle>{status}</CardTitle>
         </span>
       </CardHeader>
-      <CardContent className="h-[60%] text-white overflow-y-scroll">
-        {state.map((item: Item) => {
-          return <SidebarItem key={item.id} item={item} status={status} />;
-        })}
-      </CardContent>
-      <CardFooter className="h-[20%]">
-        {active === status && <SidebarAddItem status={status} />}
-      </CardFooter>
+      {active === status && (
+        <>
+          <CardContent className=" text-white overflow-y-scroll">
+            {state.map((item: Item) => {
+              return <SidebarItem key={item.id} item={item} status={status} />;
+            })}
+          </CardContent>
+          <CardFooter className="h-[20%]">
+            <SidebarAddItem status={status} />
+          </CardFooter>
+        </>
+      )}
     </Card>
   );
 };

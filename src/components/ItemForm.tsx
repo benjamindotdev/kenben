@@ -64,7 +64,12 @@ const itemSchema = z.object({
 const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
   const { items, setItems } = useItems();
   const navigate = useNavigate();
-  const dateFormatter = () => new Date();
+
+  let editCreatedDate, editDueDate;
+  if (editItem) {
+    editCreatedDate = new Date(editItem.createdDate);
+    editDueDate = new Date(editItem.dueDate);
+  }
   const form = useForm({
     resolver: zodResolver(itemSchema),
     defaultValues: {
@@ -74,12 +79,8 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
       assignee: editItem?.assignee || "You",
       status: editItem?.status || addItemStatus || "",
       priority: editItem?.priority || "",
-      createdDate: editItem?.createdDate
-        ? editItem.createdDate.toLocaleDateString().replace(/\//g, "-")
-        : dateFormatter(),
-      dueDate: editItem?.dueDate
-        ? editItem.dueDate.toLocaleDateString().replace(/\//g, "-")
-        : dateFormatter(),
+      createdDate: editItem ? editCreatedDate : new Date(),
+      dueDate: editItem?.dueDate ? editDueDate : new Date(),
     },
   });
 
@@ -91,40 +92,40 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
       assignee: editItem?.assignee || "You",
       status: editItem?.status || addItemStatus || "",
       priority: editItem?.priority || "",
-      createdDate: editItem?.createdDate
-        ? editItem.createdDate.toLocaleDateString().replace(/\//g, "-")
-        : dateFormatter(),
-      dueDate: editItem?.dueDate
-        ? editItem.dueDate.toLocaleDateString().replace(/\//g, "-")
-        : dateFormatter(),
+      createdDate: editItem ? new Date(editItem.createdDate) : new Date(),
+      dueDate: editItem?.dueDate ? new Date(editItem.dueDate) : new Date(),
     });
   }, [items]);
 
   const onSubmit = (values: z.infer<typeof itemSchema>) => {
-    const createdDate = values.createdDate
+    const createdDateString = new Date()
       .toLocaleDateString()
       .replace(/\//g, "-");
-    const dueDate = values.dueDate.toLocaleDateString().replace(/\//g, "-");
+    const dueDateString = values.dueDate
+      .toLocaleDateString()
+      .replace(/\//g, "-");
 
     if (editItem) {
-      const updatedItems = items.map((item: Item) =>
-        item.id === editItem.id ? values : item
-      );
-      setItems([
-        ...updatedItems,
-        { ...values, createdDate: createdDate, dueDate: dueDate },
-      ]);
+      const updatedItem = items.find((item) => item.id === editItem.id);
+      if (updatedItem) {
+        const updatedItems = items.filter((item) => item.id !== editItem.id);
+        const newItem = {
+          ...values,
+          createdDate: createdDateString,
+          dueDate: dueDateString,
+        };
+        setItems([...updatedItems, newItem]);
+      }
     } else if (addItemStatus) {
       const newItem = {
         ...values,
         status: addItemStatus,
-        createdDate,
-        dueDate,
+        createdDate: createdDateString,
+        dueDate: dueDateString,
       };
       setItems([...items, newItem]);
     }
     form.reset();
-    navigate(-1);
   };
 
   useEffect(() => {

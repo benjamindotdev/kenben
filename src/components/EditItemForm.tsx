@@ -6,6 +6,8 @@ const EditItemForm = () => {
   const { id } = useParams();
   const item = useItems().items.find((item) => item.id === id);
 
+  console.log(item);
+
   return <ItemForm editItem={item} />;
 };
 
