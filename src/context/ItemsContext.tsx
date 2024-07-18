@@ -33,6 +33,8 @@ const ItemsProvider = ({ children }: any) => {
     })
   );
 
+  console.log(items);
+
   const [toDos, setToDos] = useState<Item[]>([]);
   const [inProgress, setInProgress] = useState<Item[]>([]);
   const [done, setDone] = useState<Item[]>([]);

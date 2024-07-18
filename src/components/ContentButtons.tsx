@@ -10,6 +10,7 @@ type ContentButtonsProps = {
 
 const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
   const { items, setItems } = useItems();
+  const item = items.find((item) => item.id === itemId);
   const filteredItems = items.filter((item) => item.id !== itemId);
   const itemToUpdate = items.find((item) => item.id === itemId);
   const navigate = useNavigate();
@@ -29,7 +30,10 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
     navigate(`/`);
   };
   const handleEdit = () => {
-    itemToUpdate && navigate(`/${itemToUpdate.status}/${itemId}/edit`);
+    itemToUpdate &&
+      navigate(
+        `/${itemToUpdate.status.toLowerCase().replace(" ", "")}/${itemId}/edit`
+      );
   };
 
   const handleBacklog = () => {
@@ -47,7 +51,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
     <div className="flex flex-row justify-between ">
       <Button
         onClick={handleDone}
-        disabled={status === "Done"}
+        disabled={item && item.status === "Done"}
         className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Done
@@ -56,7 +60,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
 
       <Button
         onClick={handleDelete}
-        disabled={status === "Done"}
+        disabled={item && item.status === "Done"}
         className="flex flex-row gap-2 w-[23%] hover:text-red-600 transition-all ease-in-out duration-300"
       >
         Delete
@@ -71,7 +75,10 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
       </Button>
       <Button
         onClick={handleBacklog}
-        disabled={status === "Backlog" || status === "Done"}
+        disabled={
+          (item && item.status === "Backlog") ||
+          (item && item.status === "Done")
+        }
         className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Backlog

@@ -15,7 +15,6 @@ type ContentItemProps = {
 };
 
 const ContentItem: React.FC<ContentItemProps> = ({ item }) => {
-  console.log(item.createdDate, item.dueDate);
   return (
     <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double hover:animate-pulse">
       <Link
