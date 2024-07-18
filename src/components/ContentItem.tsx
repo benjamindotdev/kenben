@@ -48,7 +48,7 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
           <CardDescription>{item.description}</CardDescription>
         </CardContent>
         <CardFooter className="flex flex-row justify-between ">
-          <ContentButtons itemId={item.id} />
+          <ContentButtons itemId={item.id} status={item.status} />
         </CardFooter>
       </Card>
     </Link>

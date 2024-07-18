@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 type ContentButtonsProps = {
   itemId: string;
+  status: string;
 };
 
-const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
+const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
   const { items, setItems } = useItems();
   const handleClick = (status: string) => {
     const filteredItems = items.filter((item) => item.id !== itemId);
@@ -29,6 +30,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
     <div className="flex flex-row justify-between ">
       <Button
         onClick={() => handleClick("Done")}
+        disabled={status === "Done"}
         className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Done
@@ -51,6 +53,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
       </Button>
       <Button
         onClick={() => handleClick("Backlog")}
+        disabled={status === "Backlog"}
         className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300"
       >
         Backlog

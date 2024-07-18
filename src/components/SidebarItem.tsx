@@ -5,10 +5,10 @@ import SidebarButtons from "./SidebarButtons";
 
 type SidebarItemProps = {
   item: Item;
-  type: "To Do" | "In Progress" | "Done" | "Backlog";
+  status: "To Do" | "In Progress" | "Done" | "Backlog";
 };
 
-const SidebarItem: React.FC<SidebarItemProps> = ({ item, type }) => {
+const SidebarItem: React.FC<SidebarItemProps> = ({ item, status }) => {
   const [show, setShow] = useState<boolean>(false);
   return (
     <CardDescription
@@ -19,10 +19,10 @@ const SidebarItem: React.FC<SidebarItemProps> = ({ item, type }) => {
     >
       <p
         className={`hover:text-pink-200 flex before:pr-2 before:text-pink-300 transition-all ease-in duration-300 
-          ${type === "Done" && "before:content-['✔']"}
-          ${type === "To Do" && "before:content-['*']"}
-          ${type === "In Progress" && "before:content-['>']"}
-          ${type === "Backlog" && "before:content-['...']"}`}
+          ${status === "Done" && "before:content-['✔']"}
+          ${status === "To Do" && "before:content-['*']"}
+          ${status === "In Progress" && "before:content-['>']"}
+          ${status === "Backlog" && "before:content-['...']"}`}
       >
         {item.title}
       </p>

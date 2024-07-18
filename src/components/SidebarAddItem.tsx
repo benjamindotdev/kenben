@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 type SidebarAddItemProps = {
-  type: string;
+  status: string;
 };
 
-const SidebarAddItem: React.FC<SidebarAddItemProps> = ({ type }) => {
+const SidebarAddItem: React.FC<SidebarAddItemProps> = ({ status }) => {
   const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
   return (
     <Link
-      to={`/add/${type.replace(/\s/g, "+")}`}
+      to={`/add/${status.replace(/\s/g, "+")}`}
       className="opacity-50 hover:opacity-100"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Button>Add Item {isHovered && `to ${type}`}</Button>
+      <Button>Add Item {isHovered && `to ${status}`}</Button>
     </Link>
   );
 };
