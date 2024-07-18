@@ -12,7 +12,7 @@ import {
 
 const Navbar = () => {
   return (
-    <nav className="w-full h-[10vh] px-6 flex flex-row justify-between items-center opacity-50 hover:opacity-100 transition-all ease-in-out duration-1000">
+    <nav className="w-[100%] h-[10vh] px-6 flex flex-row justify-between items-center opacity-50 hover:opacity-100 transition-all ease-in-out duration-1000">
       <h1 className="navbar__title">けんべん (kenben)</h1>
       <NavbarLogos />
       <NavigationMenu>

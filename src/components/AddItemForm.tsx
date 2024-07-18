@@ -59,18 +59,20 @@ const itemSchema = z.object({
 const AddItemForm = () => {
   const { items, setItems } = useItems();
   const type = useParams().type?.replace(/\+/g, " ");
+  const id = useParams().id;
+  const item = items.find((item) => item.id === id);
 
   const form = useForm<z.infer<typeof itemSchema>>({
     resolver: zodResolver(itemSchema),
     defaultValues: {
-      id: uuidv4(),
-      title: "",
-      description: "",
-      assignee: "You",
-      status: type,
-      priority: "",
-      createdDate: `${new Date().toDateString()}`,
-      dueDate: "",
+      id: item?.id || uuidv4(),
+      title: item?.title || "",
+      description: item?.description || "",
+      assignee: item?.assignee || "You",
+      status: item?.status || "To Do",
+      priority: item?.priority || "",
+      createdDate: item?.createdDate || `${new Date().toDateString()}`,
+      dueDate: item?.dueDate || "",
     },
   });
 
@@ -123,7 +125,10 @@ const AddItemForm = () => {
             <FormItem>
               <FormLabel htmlFor="status">Status</FormLabel>
               <FormControl>
-                <Select {...field}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger>
                     <SelectValue>{field.value}</SelectValue>
                   </SelectTrigger>
@@ -149,7 +154,10 @@ const AddItemForm = () => {
             <FormItem>
               <FormLabel htmlFor="priority">Priority</FormLabel>
               <FormControl>
-                <Select {...field}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <SelectTrigger>
                     <SelectValue>{field.value}</SelectValue>
                   </SelectTrigger>
@@ -175,12 +183,18 @@ const AddItemForm = () => {
               <FormLabel htmlFor="dueDate">Due Date</FormLabel>
               <FormControl>
                 <Popover>
-                  <PopoverTrigger asChild>
-                    <Input id="dueDate" {...field} placeholder="Due Date" />
+                  <PopoverTrigger className="flex flex-col">
+                    <Input
+                      id="dueDate"
+                      placeholder="Due Date"
+                      value={new Date(field.value).toLocaleDateString()}
+                      onChange={field.onChange}
+                    />
                   </PopoverTrigger>
                   <PopoverContent>
                     <Calendar
-                      selected={new Date(field.value.toLocaleString())} /////////
+                      mode="single"
+                      selected={new Date(field.value)}
                       onSelect={field.onChange}
                     />
                   </PopoverContent>

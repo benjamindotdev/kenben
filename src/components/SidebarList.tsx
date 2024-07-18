@@ -16,15 +16,9 @@ type SidebarListProps = {
   type: "To Do" | "In Progress" | "Done" | "Backlog";
   url: "todo" | "inprogress" | "done" | "backlog";
   state: Item[];
-  setState: React.Dispatch<React.SetStateAction<Item[]>>;
 };
 
-const SidebarList: React.FC<SidebarListProps> = ({
-  type,
-  url,
-  state,
-  setState,
-}) => {
+const SidebarList: React.FC<SidebarListProps> = ({ type, url, state }) => {
   const { active, setActive } = useActive();
   return (
     <Link className="" to={`/${url}`} onClick={() => setActive(type)}>

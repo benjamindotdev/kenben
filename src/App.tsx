@@ -7,7 +7,7 @@ import Main from "./components/Main";
 function App() {
   return (
     <div
-      className={`flex flex-col justify-center align-middle h-[100vh] w-[100vw]`}
+      className={`flex flex-col justify-center align-middle h-[100vh] w-[100vw] mx-auto xl:w-[80vw]`}
     >
       <ItemsProvider>
         <Navbar />

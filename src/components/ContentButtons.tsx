@@ -47,6 +47,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId }) => {
       <Button className="flex flex-row gap-2 w-[23%] hover:text-pink-400 transition-all ease-in-out duration-300">
         Edit
         <MiniButton type="Edit" />
+        <Link to={`/edit/${itemId}`} />
       </Button>
       <Button
         onClick={() => handleClick("Backlog")}

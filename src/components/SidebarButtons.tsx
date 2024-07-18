@@ -1,5 +1,6 @@
 import { useItems } from "@/context/ItemsContext";
 import MiniButton from "./MiniButton";
+import { useNavigate } from "react-router-dom";
 
 type SidebarButtonsProps = {
   itemId: string;
@@ -7,13 +8,16 @@ type SidebarButtonsProps = {
 
 const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
   const { items, setItems } = useItems();
-
+  const navigate = useNavigate();
   const handleClick = (status: string) => {
     const filteredItems = items.filter((item) => item.id !== itemId);
     const itemToUpdate = items.find((item) => item.id === itemId);
     if (itemToUpdate) {
       if (status === "Delete") {
         setItems(filteredItems);
+        return;
+      } else if (status === "Edit") {
+        navigate(`/edit/${itemId}`);
         return;
       } else {
         const updatedItem = {

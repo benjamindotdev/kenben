@@ -26,7 +26,10 @@ const Content = () => {
         <Route path={`/backlog`} element={<ContentList items={backlog} />}>
           <Route path={`:id`} element={<ContentFullPage />} />
         </Route>
-        <Route path="add/:type" element={<AddItemForm />} />
+        <Route path={"add/:type"} element={<AddItemForm />} />
+        <Route path={"edit/"} element={<AddItemForm />}>
+          <Route path={`:id`} element={<AddItemForm />} />
+        </Route>
       </Routes>
     </div>
   );
