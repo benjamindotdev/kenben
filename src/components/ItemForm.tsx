@@ -57,57 +57,80 @@ const itemSchema = z.object({
   assignee: z.string(),
   status: z.string(),
   priority: z.string(),
-  createdDate: z.string().date(),
-  dueDate: z.string().date(),
+  createdDate: z.date(),
+  dueDate: z.date(),
 });
 
 const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
   const { items, setItems } = useItems();
   const navigate = useNavigate();
+  const dateFormatter = () => new Date();
   const form = useForm({
     resolver: zodResolver(itemSchema),
     defaultValues: {
-      id: editItem?.id ?? Math.max(items.length + 1, 1).toString(),
-      title: editItem?.title ?? "",
-      description: editItem?.description ?? "",
-      assignee: editItem?.assignee ?? "You",
-      status: editItem?.status ?? addItemStatus ?? "",
-      priority: editItem?.priority ?? "",
-      createdDate:
-        editItem?.createdDate ?? `${new Date().toLocaleDateString()}`,
-      dueDate: editItem?.dueDate ?? `${new Date().toLocaleDateString()}`,
+      id: editItem?.id || Math.max(items.length + 1, 1).toString(),
+      title: editItem?.title || "",
+      description: editItem?.description || "",
+      assignee: editItem?.assignee || "You",
+      status: editItem?.status || addItemStatus || "",
+      priority: editItem?.priority || "",
+      createdDate: editItem?.createdDate
+        ? editItem.createdDate.toLocaleDateString().replace(/\//g, "-")
+        : dateFormatter(),
+      dueDate: editItem?.dueDate
+        ? editItem.dueDate.toLocaleDateString().replace(/\//g, "-")
+        : dateFormatter(),
     },
   });
 
-  // console.log(items, "items");
-
   useEffect(() => {
     form.reset({
-      id: editItem?.id ?? Math.max(items.length + 1, 1).toString(),
-      title: editItem?.title ?? "",
-      description: editItem?.description ?? "",
-      assignee: editItem?.assignee ?? "You",
-      status: editItem?.status ?? addItemStatus ?? "",
-      priority: editItem?.priority ?? "",
-      createdDate:
-        editItem?.createdDate ?? `${new Date().toLocaleDateString()}`,
-      dueDate: editItem?.dueDate ?? `${new Date().toLocaleDateString()}`,
+      id: editItem?.id || Math.max(items.length + 1, 1).toString(),
+      title: editItem?.title || "",
+      description: editItem?.description || "",
+      assignee: editItem?.assignee || "You",
+      status: editItem?.status || addItemStatus || "",
+      priority: editItem?.priority || "",
+      createdDate: editItem?.createdDate
+        ? editItem.createdDate.toLocaleDateString().replace(/\//g, "-")
+        : dateFormatter(),
+      dueDate: editItem?.dueDate
+        ? editItem.dueDate.toLocaleDateString().replace(/\//g, "-")
+        : dateFormatter(),
     });
   }, [items]);
 
   const onSubmit = (values: z.infer<typeof itemSchema>) => {
+    const createdDate = values.createdDate
+      .toLocaleDateString()
+      .replace(/\//g, "-");
+    const dueDate = values.dueDate.toLocaleDateString().replace(/\//g, "-");
+
     if (editItem) {
       const updatedItems = items.map((item: Item) =>
         item.id === editItem.id ? values : item
       );
-      setItems(updatedItems);
+      setItems([
+        ...updatedItems,
+        { ...values, createdDate: createdDate, dueDate: dueDate },
+      ]);
     } else if (addItemStatus) {
-      const newItem = { ...values, status: addItemStatus };
+      const newItem = {
+        ...values,
+        status: addItemStatus,
+        createdDate,
+        dueDate,
+      };
       setItems([...items, newItem]);
     }
     form.reset();
     navigate(-1);
   };
+
+  useEffect(() => {
+    console.log(form.formState.errors);
+  }, [form.formState.errors]);
+
   return (
     <Form {...form}>
       <form
@@ -210,7 +233,6 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
           control={form.control}
           name={"dueDate"}
           render={({ field }) => {
-            console.log("field", field.value);
             return (
               <FormItem>
                 <FormLabel htmlFor="dueDate">Due Date</FormLabel>
@@ -220,14 +242,14 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                       <Input
                         id="dueDate"
                         placeholder="Due Date"
-                        value={field.value}
+                        value={field.value.toLocaleString()}
                         onChange={field.onChange}
                       />
                     </PopoverTrigger>
                     <PopoverContent>
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={field.value.toLocaleString()}
                         onSelect={field.onChange}
                       />
                     </PopoverContent>
