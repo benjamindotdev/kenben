@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CardDescription } from "./ui/card";
 import type { Item } from "../types/Item";
 import SidebarButtons from "./SidebarButtons";
+import { useNavigate } from "react-router-dom";
 
 type SidebarItemProps = {
   item: Item;
@@ -10,25 +11,29 @@ type SidebarItemProps = {
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ item, status }) => {
   const [show, setShow] = useState<boolean>(false);
+  const navigate = useNavigate();
   return (
-    <CardDescription
-      className="p-2 rounded-xl flex flex-col gap-2 cursor-pointer opacity-50 hover:opacity-100"
-      key={item.id}
+    <div
+      className={`flex flex-col gap-2 hover:text-pink-200  transition-all ease-in duration-300`}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
+      key={item.id}
     >
-      <p
-        className={`hover:text-pink-200 flex before:pr-2 before:text-pink-300 transition-all ease-in duration-300 
-          ${status === "Done" && "before:content-['✔']"}
-          ${status === "To Do" && "before:content-['*']"}
-          ${status === "In Progress" && "before:content-['>']"}
-          ${status === "Backlog" && "before:content-['...']"}`}
+      <CardDescription
+        className={`cursor-pointer opacity-50 hover:opacity-100 before:pr-2 before:text-pink-300 ${
+          status === "Done" && "before:content-['✔']"
+        }
+        ${status === "To Do" && "before:content-['*']"}
+        ${status === "In Progress" && "before:content-['>']"}
+        ${status === "Backlog" && "before:content-['...']"}`}
+        onClick={() => navigate(`${item.status}/${item.id}`)}
       >
         {item.title}
-      </p>
-
-      {show && <SidebarButtons itemId={item.id} />}
-    </CardDescription>
+      </CardDescription>
+      <CardDescription>
+        {show && <SidebarButtons itemId={item.id} />}
+      </CardDescription>
+    </div>
   );
 };
 

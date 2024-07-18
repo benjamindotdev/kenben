@@ -17,7 +17,7 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
         setItems(filteredItems);
         return;
       } else if (status === "Edit") {
-        navigate(`/edit/${itemId}`);
+        navigate(`/${itemToUpdate.status}/${itemId}/edit`);
         return;
       } else {
         const updatedItem = {
@@ -30,20 +30,15 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
     }
   };
   return (
-    <div className="flex flex-row justify-start gap-2 ease-in-out transition-all hover:text-pink-200">
-      <span onClick={() => handleClick("Done")}>
-        <MiniButton type={"Done"} />
-      </span>
-      <span onClick={() => handleClick("Delete")}>
-        <MiniButton type={"Delete"} />
-      </span>
-      <span onClick={() => handleClick("Edit")}>
-        <MiniButton type={"Edit"} />
-      </span>
-      <span onClick={() => handleClick("Backlog")}>
-        <MiniButton type={"Backlog"} />
-      </span>
-    </div>
+    <span className="flex flex-row justify-start gap-2 ease-in-out transition-all hover:text-pink-200">
+      <MiniButton type={"Done"} clickHandler={() => handleClick("Done")} />
+      <MiniButton type={"Delete"} clickHandler={() => handleClick("Delete")} />
+      <MiniButton type={"Edit"} clickHandler={() => handleClick("Edit")} />
+      <MiniButton
+        type={"Backlog"}
+        clickHandler={() => handleClick("Backlog")}
+      />
+    </span>
   );
 };
 

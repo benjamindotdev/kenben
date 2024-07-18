@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 type SidebarAddItemProps = {
@@ -8,17 +8,23 @@ type SidebarAddItemProps = {
 
 const SidebarAddItem: React.FC<SidebarAddItemProps> = ({ status }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
+  const handleClick = () => {
+    console.log(`Navigating to /add?status=${status.replace(/\s/g, "+")}`);
+    navigate(`/add?status=${status.replace(/\s/g, "+")}`);
+  };
+
   return (
-    <Link
-      to={`/add/${status.replace(/\s/g, "+")}`}
-      className="opacity-50 hover:opacity-100"
+    <Button
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className="opacity-50 hover:opacity-100"
     >
-      <Button>Add Item {isHovered && `to ${status}`}</Button>
-    </Link>
+      Add Item {isHovered && `to ${status}`}
+    </Button>
   );
 };
 

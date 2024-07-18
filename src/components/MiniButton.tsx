@@ -3,9 +3,10 @@ import { useState } from "react";
 
 interface MiniButtonProps {
   type: "Done" | "Delete" | "Edit" | "Backlog";
+  clickHandler?: () => void;
 }
 
-const MiniButton: React.FC<MiniButtonProps> = ({ type }) => {
+const MiniButton: React.FC<MiniButtonProps> = ({ type, clickHandler }) => {
   const renderIcon = () => {
     switch (type) {
       case "Done":
@@ -43,6 +44,7 @@ const MiniButton: React.FC<MiniButtonProps> = ({ type }) => {
   const [hover, setHover] = useState<boolean>(false);
   return (
     <span
+      onClick={clickHandler}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >

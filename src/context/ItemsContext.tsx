@@ -29,8 +29,6 @@ const ItemsProvider = ({ children }: any) => {
     data.map((item) => {
       return {
         ...item,
-        createdDate: new Date(item.createdDate).toLocaleDateString(),
-        dueDate: new Date(item.dueDate).toLocaleDateString(),
       };
     })
   );

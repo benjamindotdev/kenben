@@ -10,17 +10,18 @@ import type { Item } from "../types/Item";
 import { Link } from "react-router-dom";
 import ContentButtons from "./ContentButtons";
 
-type ContentCardProps = {
+type ContentItemProps = {
   item: Item;
 };
 
-const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
+const ContentItem: React.FC<ContentItemProps> = ({ item }) => {
+  console.log(item.createdDate, item.dueDate);
   return (
-    <Link
-      to={item.id}
-      className="text-white hover:text-white transition-all hover:ease-in duration-300"
-    >
-      <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double hover:animate-pulse">
+    <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double hover:animate-pulse">
+      <Link
+        to={`${item.id}`}
+        className="text-white hover:text-white transition-all hover:ease-in duration-300"
+      >
         <CardHeader className="flex flex-row justify-center align-middle">
           <CardTitle>{item.title}</CardTitle>
           <div className="flex flex-row justify-start align-baseline gap-2">
@@ -47,12 +48,12 @@ const ContentCard: React.FC<ContentCardProps> = ({ item }) => {
         <CardContent className="flex flex-col">
           <CardDescription>{item.description}</CardDescription>
         </CardContent>
-        <CardFooter className="flex flex-row justify-between ">
-          <ContentButtons itemId={item.id} status={item.status} />
-        </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+      <CardFooter className="flex flex-row justify-between ">
+        <ContentButtons itemId={item.id} status={item.status} />
+      </CardFooter>
+    </Card>
   );
 };
 
-export default ContentCard;
+export default ContentItem;
