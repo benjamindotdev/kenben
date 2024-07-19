@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { DayPicker, Formatters } from "react-day-picker";
+import { DayPicker } from "react-day-picker";
 
 const cn = (...classes: (string | boolean | null | undefined)[]) => {
   return classes.filter(Boolean).join(" ");
@@ -17,8 +17,6 @@ function Calendar({
 }: CalendarProps) {
   return (
     <DayPicker
-      numberOfMonths={2}
-      formatters={{}}
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{

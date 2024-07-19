@@ -188,7 +188,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                     <SelectValue>{field.value}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
+                    <SelectGroup className="bg-black">
                       <SelectLabel>Status:</SelectLabel>
                       <SelectItem value="To Do">To Do</SelectItem>
                       <SelectItem value="In Progress">In Progress</SelectItem>
@@ -217,7 +217,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                     <SelectValue>{field.value}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
+                    <SelectGroup className="bg-black">
                       <SelectLabel>Priority</SelectLabel>
                       <SelectItem value="High">High</SelectItem>
                       <SelectItem value="Medium">Medium</SelectItem>
@@ -243,14 +243,14 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                       <Input
                         id="dueDate"
                         placeholder="Due Date"
-                        value={field.value.toLocaleString()}
+                        value={field?.value?.toLocaleString()}
                         onChange={field.onChange}
                       />
                     </PopoverTrigger>
-                    <PopoverContent>
+                    <PopoverContent className="bg-black">
                       <Calendar
                         mode="single"
-                        selected={field.value.toLocaleString()}
+                        selected={field?.value?.toLocaleString()}
                         onSelect={field.onChange}
                       />
                     </PopoverContent>
