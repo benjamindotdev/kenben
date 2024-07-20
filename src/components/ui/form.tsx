@@ -10,9 +10,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-const cn = (...classes: (string | boolean | null | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
+import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 
 const Form = FormProvider;

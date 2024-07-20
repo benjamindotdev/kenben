@@ -1,8 +1,6 @@
 import * as React from "react";
 
-const cn = (...classes: (string | boolean | null | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
+import { cn } from "@/lib/utils";
 
 const Card = React.forwardRef<
   HTMLDivElement,

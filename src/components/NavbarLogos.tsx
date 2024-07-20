@@ -20,7 +20,7 @@ const avatars = [
 
 const NavbarLogos = () => {
   return (
-    <ul className="flex flex-row gap-4">
+    <ul className="flex flex-row gap-4 animate-pulse">
       {avatars.map((avatar, index) => (
         <Avatar key={index}>
           <AvatarImage src={avatar.src} alt={avatar.alt} className="w-8 h-8" />
