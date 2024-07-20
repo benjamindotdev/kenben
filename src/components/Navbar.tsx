@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Badge } from "@/components/ui/badge";
 import benjamin from "../assets/benjamin.jpeg";
+import { Github, Linkedin, BriefcaseBusiness, Mail } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -44,16 +45,42 @@ const Navbar = () => {
                   </HoverCardTrigger>
                   <HoverCardContent>
                     <div className="flex flex-col gap-4">
-                      <h3>Benjamin Mbonimpa</h3>
-                      <p>Software Engineer</p>
-                      <p>
-                        benjaminmbonimpa
-                        <br />
-                        @gmail.com
-                      </p>
-                      <Badge variant="default" className="text-black ">
-                        Follow
-                      </Badge>
+                      <h3>Benjamin</h3>
+                      <p>Web Developer</p>
+                      <div className="flex flex-row gap-4">
+                        <a
+                          href="https://github.com/benjamindotdev"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <Github />
+                          <label className="sr-only">Github</label>
+                        </a>
+                        <a
+                          href="https://www.linkedin.com/in/benjamindotdev/"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <Linkedin />
+                          <label className="sr-only">LinkedIn</label>
+                        </a>
+                        <a
+                          href="https://benjamin.dev"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <BriefcaseBusiness />
+                          <label className="sr-only">Portfolio</label>
+                        </a>
+                        <a
+                          href="mailto:hello@benjamin.dev"
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          <Mail />
+                          <label className="sr-only">Email</label>
+                        </a>
+                      </div>
                     </div>
                   </HoverCardContent>
                 </HoverCard>
