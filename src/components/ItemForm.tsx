@@ -247,7 +247,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                         onChange={field.onChange}
                       />
                     </PopoverTrigger>
-                    <PopoverContent className="bg-black">
+                    <PopoverContent side="top" className="bg-slate-800 p-2">
                       <Calendar
                         mode="single"
                         selected={field?.value?.toLocaleString()}

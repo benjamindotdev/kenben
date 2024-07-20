@@ -32,7 +32,7 @@ const Navbar = () => {
               <h1 className="navbar__title">けんべん (kenben)</h1>
             </SheetTitle>
             <SheetDescription className="flex flex-col gap-8 h-[100%]">
-              <h2>A kanban board for your notes.</h2>
+              <h2>A kanban board built by someone named Ben.</h2>
               <div className="flex flex-row p-6 justify-start items-center gap-4">
                 <p>Built by:</p>
                 <HoverCard>
@@ -51,7 +51,9 @@ const Navbar = () => {
                         <br />
                         @gmail.com
                       </p>
-                      <Badge variant="secondary">Follow</Badge>
+                      <Badge variant="default" className="text-black ">
+                        Follow
+                      </Badge>
                     </div>
                   </HoverCardContent>
                 </HoverCard>

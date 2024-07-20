@@ -37,7 +37,7 @@ export default {
     {
       tailwindcss: { config: "./tailwindcss-config.js" },
     },
-    "tailwindcss-animate",
+    require("tailwindcss-animate"),
   ],
   compilerOptions: {
     baseUrl: ".",
