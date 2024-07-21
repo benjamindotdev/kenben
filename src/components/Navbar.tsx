@@ -8,17 +8,15 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetFooter,
-  SheetClose,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Badge } from "@/components/ui/badge";
 import benjamin from "../assets/benjamin.jpeg";
-import { Github, Linkedin, BriefcaseBusiness, Mail } from "lucide-react";
+import benjaminGrey from "../assets/benjaminGrey.jpg";
+import SocialIcons from "./SocialIcons";
 
 const Navbar = () => {
   return (
@@ -39,48 +37,26 @@ const Navbar = () => {
                 <HoverCard>
                   <HoverCardTrigger>
                     <Avatar className="animate-pulse">
-                      <AvatarImage src={benjamin} alt="benjamin" />
+                      <AvatarImage src={benjaminGrey} alt="benjamin" />
                       <AvatarFallback>BM</AvatarFallback>
                     </Avatar>
                   </HoverCardTrigger>
-                  <HoverCardContent>
+                  <HoverCardContent className="w-full ml-6 mt-6">
                     <div className="flex flex-col gap-4">
-                      <h3>Benjamin</h3>
-                      <p>Web Developer</p>
-                      <div className="flex flex-row gap-4">
-                        <a
-                          href="https://github.com/benjamindotdev"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          <Github />
-                          <label className="sr-only">Github</label>
-                        </a>
-                        <a
-                          href="https://www.linkedin.com/in/benjamindotdev/"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          <Linkedin />
-                          <label className="sr-only">LinkedIn</label>
-                        </a>
-                        <a
-                          href="https://benjamin.dev"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          <BriefcaseBusiness />
-                          <label className="sr-only">Portfolio</label>
-                        </a>
-                        <a
-                          href="mailto:hello@benjamin.dev"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          <Mail />
-                          <label className="sr-only">Email</label>
-                        </a>
+                      <div className="flex flex-row justify-start gap-6 items-center px-2">
+                        <Avatar>
+                          <AvatarImage src={benjamin} alt="benjamin" />
+                          <AvatarFallback>BM</AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-1">
+                          <h3 className="text-primary font-bold text-xl">
+                            Benjamin
+                          </h3>
+                          <p>React Developer</p>
+                        </div>
                       </div>
+
+                      <SocialIcons />
                     </div>
                   </HoverCardContent>
                 </HoverCard>
@@ -90,11 +66,7 @@ const Navbar = () => {
               </div>
             </SheetDescription>
           </SheetHeader>
-          <SheetFooter>
-            <SheetClose asChild>
-              <Button type="submit">Save changes</Button>
-            </SheetClose>
-          </SheetFooter>
+          <SheetFooter></SheetFooter>
         </SheetContent>
       </Sheet>
     </nav>
