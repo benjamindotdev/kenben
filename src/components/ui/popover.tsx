@@ -1,9 +1,7 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 
-const cn = (...classes: (string | boolean | null | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
+import { cn } from "@/lib/utils";
 
 const Popover = PopoverPrimitive.Root;
 

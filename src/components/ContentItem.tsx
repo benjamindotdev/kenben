@@ -21,7 +21,7 @@ const ContentItem: React.FC<ContentItemProps> = ({ item }) => {
         to={`${item.id}`}
         className="text-white hover:text-white transition-all hover:ease-in duration-300"
       >
-        <CardHeader className="flex flex-row justify-center align-middle">
+        <CardHeader className="flex flex-col justify-center align-middle">
           <CardTitle>{item.title}</CardTitle>
           <div className="flex flex-row justify-start align-baseline gap-2">
             <p className="text-lg">

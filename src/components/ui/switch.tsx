@@ -1,9 +1,7 @@
 import * as React from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
 
-const cn = (...classes: (string | boolean | null | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
+import { cn } from "@/lib/utils";
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
