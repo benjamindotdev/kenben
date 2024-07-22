@@ -11,7 +11,6 @@ import { ListTodo, ListChecks, Glasses, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { Item } from "../types/Item";
 import SidebarAddItem from "./SidebarAddItem";
-import { useItems } from "../context/ItemsContext";
 
 type SidebarListProps = {
   status: "To Do" | "In Progress" | "Done" | "Backlog";
@@ -43,7 +42,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
         <span className="flex flex-row gap-2">
           <span className="flex flex-row">
             <sup className="text-pink-400 font-bold">
-              {state.length > 0 ? state.length : " "}
+              {state.length > 0 && state.length}
             </sup>
             {status === "To Do" && <ListTodo size={24} />}
             {status === "Done" && <ListChecks size={24} />}

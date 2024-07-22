@@ -55,12 +55,10 @@ const Navbar = () => {
                           <p>React Developer</p>
                         </div>
                       </div>
-
                       <SocialIcons />
                     </div>
                   </HoverCardContent>
                 </HoverCard>
-
                 <p>with:</p>
                 <NavbarLogos />
               </div>
