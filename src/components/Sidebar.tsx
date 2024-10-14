@@ -2,7 +2,8 @@ import { useItems } from "../context/ItemsContext";
 import SidebarList from "./SidebarList";
 
 const Sidebar = () => {
-  const { toDos, inProgress, done, backlog } = useItems();
+  const { state } = useItems();
+  const { toDos, inProgress, done, backlog } = state;
   return (
     <div className="w-[25%] flex flex-col gap-2 justify-start ">
       <SidebarList status="Done" url="done" state={done} />

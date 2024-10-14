@@ -13,7 +13,8 @@ import {
 import ContentButtons from "./ContentButtons";
 
 const ContentFullPage = () => {
-  const { items } = useItems();
+  const { state } = useItems();
+  const { items } = state;
   const { id } = useParams();
   const [item, setItem] = useState<Item>();
 

@@ -5,7 +5,8 @@ import { useItems } from "../context/ItemsContext";
 import ContentItem from "./ContentItem";
 
 const ContentList = () => {
-  const { items } = useItems();
+  const { state } = useItems();
+  const { items, toDos, inProgress, done, backlog } = state;
   const { status } = useParams();
   const [filteredItems, setFilteredItems] = useState<Item[]>(items);
 

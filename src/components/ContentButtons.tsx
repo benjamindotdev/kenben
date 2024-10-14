@@ -9,7 +9,8 @@ type ContentButtonsProps = {
 };
 
 const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
-  const { items, setItems } = useItems();
+  const { state, dispatch } = useItems();
+  const { items } = state;
   const item = items.find((item) => item.id === itemId);
   const filteredItems = items.filter((item) => item.id !== itemId);
   const itemToUpdate = items.find((item) => item.id === itemId);
@@ -21,12 +22,12 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
         status: "Done",
         dueDate: new Date().toDateString(),
       };
-      setItems([...filteredItems, updatedItem]);
+      dispatch({ type: "SET_ITEMS", payload: [...filteredItems, updatedItem] });
       navigate(`/done`);
     }
   };
   const handleDelete = () => {
-    setItems(filteredItems);
+    dispatch({ type: "SET_ITEMS", payload: filteredItems });
     navigate(`/`);
   };
   const handleEdit = () => {
@@ -43,7 +44,7 @@ const ContentButtons: React.FC<ContentButtonsProps> = ({ itemId, status }) => {
         status: "Backlog",
         dueDate: new Date().toDateString(),
       };
-      setItems([...filteredItems, updatedItem]);
+      dispatch({ type: "SET_ITEMS", payload: [...filteredItems, updatedItem] });
       navigate(`/backlog`);
     }
   };

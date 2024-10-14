@@ -4,7 +4,9 @@ import { useItems } from "../context/ItemsContext";
 
 const EditItemForm = () => {
   const { id } = useParams();
-  const item = useItems().items.find((item) => item.id === id);
+  const { state } = useItems();
+  const { items } = state;
+  const item = items.find((item) => item.id === id);
 
   console.log(item);
 

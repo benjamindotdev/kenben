@@ -12,7 +12,6 @@ const SidebarAddItem: React.FC<SidebarAddItemProps> = ({ status }) => {
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
   const handleClick = () => {
-    console.log(`Navigating to /add?status=${status.replace(/\s/g, "+")}`);
     navigate(`/add?status=${status.replace(/\s/g, "+")}`);
   };
 
