@@ -20,7 +20,7 @@ model Item {
   description String
   assignee    String
   status      Status
-  priority    String
+  priority    Priority
   createdDate DateTime @default(now())
   dueDate     DateTime
   user        User     @relation(fields: [assignee], references: [id])
@@ -31,4 +31,10 @@ enum Status {
   IN_PROGRESS
   DONE
   BACKLOG
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
 }
