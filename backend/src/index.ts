@@ -1,6 +1,7 @@
 import express from "express";
 import prisma from "./db";
-import { generateToken, verifyToken } from "./config/jwt";
+import { generateToken, verifyToken } from "./utils/jwt";
+import { getItemsByStatus, ItemStatus } from "./utils/getItemsByStatus";
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -186,6 +187,19 @@ app.delete("/:username/:itemId", async (req, res) => {
     },
   });
   res.json(deletedItem);
+});
+
+const statusRoutes = {
+  done: ItemStatus.DONE,
+  inprogress: ItemStatus.IN_PROGRESS,
+  backlog: ItemStatus.BACKLOG,
+  todo: ItemStatus.TODO,
+};
+
+Object.entries(statusRoutes).forEach(([route, status]) => {
+  app.get(`/:username/${route}`, (req, res) => {
+    getItemsByStatus(req, res, status);
+  });
 });
 
 app.listen(port, () => {
