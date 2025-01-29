@@ -5,6 +5,7 @@ import {
   useEffect,
   Dispatch,
 } from "react";
+import axios from "axios";
 import data from "../data/data.json";
 import type { Item } from "../types/Item";
 
@@ -28,8 +29,24 @@ type Action =
   | { type: "SET_DONE"; payload: Item[] }
   | { type: "SET_BACKLOG"; payload: Item[] };
 
+  // const data = await axios.get(`http://localhost:3001/items`,
+  //   {
+  //     headers:
+  //       {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         'Allow-Control-Allow-Origin': '*',
+  //         'Content-Type': 'application/json',
+  //         'Allow-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  //         'Allow-Control-Allow-Headers': 'Content-Type, Authorization',
+  //         'Access-Control-Allow-Origin': '*',
+  //       },
+  //   }
+  // ).then((res) => res.data);
+
+
+
 const initialState: State = {
-  items: data.map((item) => ({ ...item })),
+  items: data.map((item: any) => ({ ...item })),
   toDos: [],
   inProgress: [],
   done: [],

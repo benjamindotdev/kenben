@@ -4,17 +4,19 @@ import { generateToken, verifyToken } from "./utils/jwt";
 import { getItemsByStatus, ItemStatus } from "./utils/getItemsByStatus";
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.SERVER_PORT || 3001;
 
 app.use(express.json());
 
 app.post("/", async (req, res) => {
   const { user } = req.body;
-  const { username } = user;
+  const { username, email, password } = user;
   const token = generateToken({ username });
   const newUser = await prisma.user.create({
     data: {
       username,
+      email,
+      password,
       token,
     },
   });
