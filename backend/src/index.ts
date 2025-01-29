@@ -3,9 +3,12 @@ import prisma from "./db";
 import { generateToken, verifyToken } from "./utils/jwt";
 import { getItemsByStatus, ItemStatus } from "./utils/getItemsByStatus";
 import { hashPassword, comparePassword } from "./utils/bcrypt";
+import cors from "cors";
 
 const app = express();
 const port = process.env.SERVER_PORT || 3001;
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -22,6 +25,7 @@ app.post("/signup", async (req, res) => {
   }
 
   const { user } = req.body;
+  console.log(user)
   const { email, username, password } = user;
   const hashedPassword = await hashPassword(password);
   const token = generateToken({ username });

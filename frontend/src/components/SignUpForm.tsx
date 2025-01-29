@@ -61,9 +61,11 @@ const signUpchema = z.object({
         const onSubmit = async (data: signUpFormProps) => {
             console.log(data);
             const res = await axios.post("http://localhost:3001/signup", {
-                email: data.email,
-                username: data.username,
-                password: data.password
+                user: {
+                    email: data.email,
+                    username: data.username,
+                    password: data.password
+                }
             });
             console.log(res.data);
             localStorage.setItem("token", res.data.token);
