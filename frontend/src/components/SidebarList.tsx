@@ -29,7 +29,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
     <Card
       className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none hover:cursor-pointer ${
         active === status &&
-        "outline-white outline-double outline-offset-1 opacity-100 bg-slate-800"
+        "outline-white  opacity-100 bg-slate-900"
       }`}
     >
       <CardHeader
@@ -54,7 +54,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
       </CardHeader>
       {active === status && (
         <>
-          <CardContent className=" text-white overflow-y-scroll">
+          <CardContent className=" text-white">
             {state.map((item: Item) => {
               return <SidebarItem key={item.id} item={item} status={status} />;
             })}
