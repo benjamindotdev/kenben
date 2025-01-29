@@ -27,7 +27,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
   };
   return (
     <Card
-      className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double hover:cursor-pointer ${
+      className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none hover:cursor-pointer ${
         active === status &&
         "outline-white outline-double outline-offset-1 opacity-100 bg-slate-800"
       }`}
