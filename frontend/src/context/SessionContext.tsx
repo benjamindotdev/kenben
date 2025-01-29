@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
 
 type SessionContextType = {
     loggedIn: boolean;
@@ -10,6 +10,13 @@ const sessionContext = createContext<SessionContextType | undefined>(undefined);
 
 const SessionProvider = ({ children }: any) => {
     const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setLoggedIn(true);
+        }
+    }, []);
 
     const logOut = () => {
         localStorage.removeItem("token");
