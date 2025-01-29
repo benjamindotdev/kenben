@@ -8,25 +8,36 @@ import cors from "cors";
 const app = express();
 const port = process.env.SERVER_PORT || 3001;
 
-app.use(cors());
-
 app.use(express.json());
+app.use(cors());
 
 app.post("/signup", async (req, res) => {
 
-  if (!req.body.user) {
-    res.status(400).json({ error: "Bad request" });
-    return;
-  }
-
-  if (!req.body.user.email || !req.body.user.username || !req.body.user.password) {
-    res.status(400).json({ error: "Bad request" });
-    return;
-  }
+  console.log(req.body)
 
   const { user } = req.body;
+
+  if (!user) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
+  if (!user.email || !user.username || !user.password) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
+  
   console.log(user)
   const { email, username, password } = user;
+  if (await prisma.user.findFirst({where: {email}})) {
+    res.status(400).json({ error: "Email already exists" });
+    return;
+  }
+  if (await prisma.user.findFirst({where: {username}})) {
+    res.status(400).json({ error: "Username already exists" });
+    return;
+  }
   const hashedPassword = await hashPassword(password);
   const token = generateToken({ username });
   const newUser = await prisma.user.create({
@@ -37,7 +48,58 @@ app.post("/signup", async (req, res) => {
       token,
     },
   });
-  newUser && res.json({token});
+  newUser && res.json({token, username});
+});
+
+app.post("/login", async (req, res) => {
+  if (!req.body.email && !req.body.username) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
+  if (!req.body.password) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
+  const { email, username, password } = req.body;
+  const user = await prisma.user.findFirst({
+    where: {
+      OR: [
+        {
+          email,
+        },
+        {
+          username,
+        },
+      ],
+    },
+  });
+
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+
+  const passwordMatch = await comparePassword(password, user.password);
+
+  if (!passwordMatch) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const token = generateToken({ username: user.username });
+
+  await prisma.user.update({
+    where: {
+      username: user.username,
+    },
+    data: {
+      token,
+    },
+  });
+
+  res.json({ token, username: user.username });
 });
 
 app.get("/:username", async (req, res) => {
