@@ -1,9 +1,9 @@
 import SignUpForm from "@/components/SignUpForm";
 
-const SigmUp = () => {
+const SignUp = () => {
     return (
         <SignUpForm />
     );
 };
 
-    export default SigmUp;
+    export default SignUp;
