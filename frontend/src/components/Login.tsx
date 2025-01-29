@@ -1,5 +1,6 @@
 import { useSession } from "../context/SessionContext";
 import { useNavigate } from "react-router-dom";
+import LoginForm from "@/components/LoginForm";
 
 const Login = () => {
     const { setLoggedIn } = useSession();
@@ -10,19 +11,7 @@ const Login = () => {
         navigate("/");
     }
     return (
-        <form className="flex flex-col gap-4">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
-            <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
-            <button
-                onClick={handleSubmit}
-            >
-                Login
-            </button>
-        </form>
+        <LoginForm />
     );
 };
 
