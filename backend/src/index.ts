@@ -23,6 +23,21 @@ app.post("/", async (req, res) => {
   res.json(newUser);
 });
 
+app.post("/signup", async (req, res) => {
+  const { user } = req.body;
+  const { email, username, password } = user;
+  const token = generateToken({ username });
+  const newUser = await prisma.user.create({
+    data: {
+      email,
+      username,
+      password,
+      token,
+    },
+  });
+  res.json(newUser);
+});
+
 app.get("/:username", async (req, res) => {
   const { username } = req.params;
   const token = req.headers.authorization?.split(" ")[1];
