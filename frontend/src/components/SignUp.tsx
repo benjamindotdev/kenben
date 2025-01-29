@@ -1,9 +1,9 @@
-import LoginForm from "@/components/LoginForm";
+import SignUpForm from "@/components/SignUpForm";
 
-const Login = () => {
+const SigmUp = () => {
     return (
-        <LoginForm />
+        <SignUpForm />
     );
 };
 
-    export default Login;
+    export default SigmUp;
