@@ -62,7 +62,8 @@ const itemSchema = z.object({
 });
 
 const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
-  const { items, setItems } = useItems();
+  const { state, dispatch } = useItems();
+  const { items } = state;
   const navigate = useNavigate();
 
   let editCreatedDate, editDueDate;
@@ -79,8 +80,8 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
       assignee: editItem?.assignee || "You",
       status: editItem?.status || addItemStatus || "",
       priority: editItem?.priority || "",
-      createdDate: editItem ? editCreatedDate : new Date(),
-      dueDate: editItem?.dueDate ? editDueDate : new Date(),
+      createdDate: editItem ? new Date(editItem.createdDate) : new Date(),
+      dueDate: editItem ? new Date(editItem.dueDate) : new Date(),
     },
   });
 
@@ -93,7 +94,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
       status: editItem?.status || addItemStatus || "",
       priority: editItem?.priority || "",
       createdDate: editItem ? new Date(editItem.createdDate) : new Date(),
-      dueDate: editItem?.dueDate ? new Date(editItem.dueDate) : new Date(),
+      dueDate: editItem ? new Date(editItem.dueDate) : new Date(),
     });
   }, [items]);
 
@@ -114,7 +115,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
           createdDate: createdDateString,
           dueDate: dueDateString,
         };
-        setItems([...updatedItems, newItem]);
+        dispatch({ type: "SET_ITEMS", payload: [...updatedItems, newItem] });
       }
     } else if (addItemStatus) {
       const newItem = {
@@ -123,7 +124,7 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
         createdDate: createdDateString,
         dueDate: dueDateString,
       };
-      setItems([...items, newItem]);
+      dispatch({ type: "SET_ITEMS", payload: [...items, newItem] });
     }
     form.reset();
   };
@@ -243,14 +244,18 @@ const ItemForm: React.FC<ItemFormProps> = ({ editItem, addItemStatus }) => {
                       <Input
                         id="dueDate"
                         placeholder="Due Date"
-                        value={field?.value?.toLocaleString()}
-                        onChange={field.onChange}
+                        value={
+                          field?.value ? field.value.toLocaleDateString() : ""
+                        }
+                        onChange={(e) =>
+                          field.onChange(new Date(e.target.value))
+                        }
                       />
                     </PopoverTrigger>
                     <PopoverContent side="top" className="bg-slate-800 p-2">
                       <Calendar
                         mode="single"
-                        selected={field?.value?.toLocaleString()}
+                        selected={field?.value}
                         onSelect={field.onChange}
                       />
                     </PopoverContent>

@@ -7,14 +7,15 @@ type SidebarButtonsProps = {
 };
 
 const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
-  const { items, setItems } = useItems();
+  const { state, dispatch } = useItems();
+  const { items } = state;
   const navigate = useNavigate();
   const handleClick = (status: string) => {
     const filteredItems = items.filter((item) => item.id !== itemId);
     const itemToUpdate = items.find((item) => item.id === itemId);
     if (itemToUpdate) {
       if (status === "Delete") {
-        setItems(filteredItems);
+        dispatch({ type: "SET_ITEMS", payload: filteredItems });
         return;
       } else if (status === "Edit") {
         navigate(`/${itemToUpdate.status}/${itemId}/edit`);
@@ -25,7 +26,10 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = ({ itemId }) => {
           status: status,
           doneDate: new Date().toDateString(),
         };
-        setItems([...filteredItems, updatedItem]);
+        dispatch({
+          type: "SET_ITEMS",
+          payload: [...filteredItems, updatedItem],
+        });
       }
     }
   };

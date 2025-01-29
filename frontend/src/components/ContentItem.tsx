@@ -16,13 +16,13 @@ type ContentItemProps = {
 
 const ContentItem: React.FC<ContentItemProps> = ({ item }) => {
   return (
-    <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double hover:animate-pulse">
+    <Card className="opacity-50 hover:opacity-100 border-none hover:animate-pulse group">
       <Link
         to={`${item.id}`}
         className="text-white hover:text-white transition-all hover:ease-in duration-300"
       >
         <CardHeader className="flex flex-col justify-center align-middle">
-          <CardTitle>{item.title}</CardTitle>
+          <CardTitle className="group-hover:text-pink-200">{item.title}</CardTitle>
           <div className="flex flex-row justify-start align-baseline gap-2">
             <p className="text-lg">
               from{" "}

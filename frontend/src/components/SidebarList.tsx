@@ -11,7 +11,6 @@ import { ListTodo, ListChecks, Glasses, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { Item } from "../types/Item";
 import SidebarAddItem from "./SidebarAddItem";
-import { useItems } from "../context/ItemsContext";
 
 type SidebarListProps = {
   status: "To Do" | "In Progress" | "Done" | "Backlog";
@@ -28,9 +27,9 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
   };
   return (
     <Card
-      className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none  outline-2 outline-pink-200 hover:outline-double hover:cursor-pointer ${
+      className={` opacity-50 hover:opacity-100 transition-all hover:ease-in duration-300 border-none hover:cursor-pointer ${
         active === status &&
-        "outline-white outline-double outline-offset-1 opacity-100 bg-slate-800"
+        "outline-white  opacity-100 bg-slate-900"
       }`}
     >
       <CardHeader
@@ -43,7 +42,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
         <span className="flex flex-row gap-2">
           <span className="flex flex-row">
             <sup className="text-pink-400 font-bold">
-              {state.length > 0 ? state.length : " "}
+              {state.length > 0 && state.length}
             </sup>
             {status === "To Do" && <ListTodo size={24} />}
             {status === "Done" && <ListChecks size={24} />}
@@ -55,7 +54,7 @@ const SidebarList: React.FC<SidebarListProps> = ({ status, url, state }) => {
       </CardHeader>
       {active === status && (
         <>
-          <CardContent className=" text-white overflow-y-scroll">
+          <CardContent className=" text-white">
             {state.map((item: Item) => {
               return <SidebarItem key={item.id} item={item} status={status} />;
             })}

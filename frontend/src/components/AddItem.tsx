@@ -8,8 +8,8 @@ type AddItemProps = {
 };
 
 const AddItem: React.FC<AddItemProps> = ({ type }) => {
-  const { items, setItems } = useItems();
-
+  const { state, dispatch } = useItems();
+  const { items } = state;
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [assignee, setAssignee] = useState<string>("You");
@@ -30,19 +30,22 @@ const AddItem: React.FC<AddItemProps> = ({ type }) => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setItems([
-      ...items,
-      {
-        id: Math.random().toString(36).substr(2, 9),
-        title,
-        description,
-        assignee,
-        status,
-        priority,
-        createdDate,
-        dueDate,
-      },
-    ]);
+    dispatch({
+      type: "SET_ITEMS",
+      payload: [
+        ...items,
+        {
+          id: `${items.length + 1}`,
+          title,
+          description,
+          assignee,
+          status,
+          priority,
+          createdDate,
+          dueDate,
+        },
+      ],
+    });
     handleReset();
   };
   return (
