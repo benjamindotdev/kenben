@@ -10,6 +10,17 @@ const port = process.env.SERVER_PORT || 3001;
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
+
+  if (!req.body.user) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
+  if (!req.body.user.email || !req.body.user.username || !req.body.user.password) {
+    res.status(400).json({ error: "Bad request" });
+    return;
+  }
+
   const { user } = req.body;
   const { email, username, password } = user;
   const hashedPassword = await hashPassword(password);
@@ -22,7 +33,7 @@ app.post("/signup", async (req, res) => {
       token,
     },
   });
-  res.json(newUser);
+  newUser && res.json({token});
 });
 
 app.get("/:username", async (req, res) => {
