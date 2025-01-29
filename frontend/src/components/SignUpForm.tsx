@@ -17,6 +17,12 @@ import { useNavigate } from "react-router-dom";
 import { useSession } from "@/context/SessionContext";
 import axios from "axios";
 
+type signUpFormProps = {
+    email: string;
+    username: string;
+    password: string;
+};
+
 const signUpchema = z.object({
     email: z.string().email({
         message: "Please enter a valid email address",
@@ -52,10 +58,15 @@ const signUpchema = z.object({
             console.log(form.formState.errors);
         }, [form.formState.errors]);
 
-        const onSubmit = async (data: any) => {
+        const onSubmit = async (data: signUpFormProps) => {
             console.log(data);
-            const res = await axios.post("http://localhost:3001/signup", data);
+            const res = await axios.post("http://localhost:3001/signup", {
+                email: data.email,
+                username: data.username,
+                password: data.password
+            });
             console.log(res.data);
+            localStorage.setItem("token", res.data.token);
             res.data && setLoggedIn(true);
         };
 

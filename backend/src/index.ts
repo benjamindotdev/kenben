@@ -2,36 +2,23 @@ import express from "express";
 import prisma from "./db";
 import { generateToken, verifyToken } from "./utils/jwt";
 import { getItemsByStatus, ItemStatus } from "./utils/getItemsByStatus";
+import { hashPassword, comparePassword } from "./utils/bcrypt";
 
 const app = express();
 const port = process.env.SERVER_PORT || 3001;
 
 app.use(express.json());
 
-app.post("/", async (req, res) => {
-  const { user } = req.body;
-  const { username, email, password } = user;
-  const token = generateToken({ username });
-  const newUser = await prisma.user.create({
-    data: {
-      username,
-      email,
-      password,
-      token,
-    },
-  });
-  res.json(newUser);
-});
-
 app.post("/signup", async (req, res) => {
   const { user } = req.body;
   const { email, username, password } = user;
+  const hashedPassword = await hashPassword(password);
   const token = generateToken({ username });
   const newUser = await prisma.user.create({
     data: {
       email,
       username,
-      password,
+      password: hashedPassword,
       token,
     },
   });
