@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { Item } from "../types/Item";
 import { useItems } from "@/context/ItemsContext";
 import {
@@ -26,7 +26,7 @@ const ContentFullPage = () => {
   }, [id]);
 
   return (
-    <Card className=" flex flex-col gap-6">
+    <Card className="flex flex-col gap-6">
       <CardHeader className="flex flex-row justify-center align-middle">
         <CardTitle>{item?.title}</CardTitle>
         <div className="flex flex-row justify-start align-baseline gap-2">
