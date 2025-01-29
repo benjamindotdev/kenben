@@ -16,7 +16,7 @@ type ContentItemProps = {
 
 const ContentItem: React.FC<ContentItemProps> = ({ item }) => {
   return (
-    <Card className="opacity-50 hover:opacity-100 border-none outline-2 outline-pink-200 hover:outline-double hover:animate-pulse">
+    <Card className="opacity-50 hover:opacity-100 border-none  hover:animate-pulse">
       <Link
         to={`${item.id}`}
         className="text-white hover:text-white transition-all hover:ease-in duration-300"
