@@ -1,16 +1,23 @@
 import { useState, useContext, createContext } from "react";
 
 type SessionContextType = {
-  loggedIn: boolean;
-  setLoggedIn: (value: boolean) => void;
+    loggedIn: boolean;
+    setLoggedIn: (value: boolean) => void;
+    logOut: () => void;
 };
 
 const sessionContext = createContext<SessionContextType | undefined>(undefined);
 
 const SessionProvider = ({ children }: any) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    const logOut = () => {
+        localStorage.removeItem("token");
+        setLoggedIn(false);
+    };
+
   return (
-    <sessionContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logOut }}>
       {children}
     </sessionContext.Provider>
   );
@@ -23,5 +30,7 @@ const useSession = () => {
   }
   return context;
 };
+
+
 
 export { SessionProvider, useSession };

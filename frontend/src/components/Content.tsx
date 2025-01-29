@@ -19,6 +19,7 @@ const Content = () => {
       <Routes>
         <Route path="/" element={<ContentList />} />
         <Route path="/signUp" element={<SignUp />} />
+        <Route path="/account" element={<SignUp />} />
         <Route path="/add" element={<AddItemForm />} />
         <Route path="/:status" element={<ContentList />} />
         <Route path="/:status/:id" element={<ContentFullPage />} />
