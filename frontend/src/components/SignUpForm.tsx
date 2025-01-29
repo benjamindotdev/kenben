@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useSession } from "@/context/SessionContext";
 import axios from "axios";
 
-const loginSchema = z.object({
+const signUpchema = z.object({
     email: z.string().email({
         message: "Please enter a valid email address",
     }),
@@ -25,12 +25,12 @@ const loginSchema = z.object({
     password: z.string().min(5, {message: "Password must be at least 5 characters"})
 });
 
-    const LoginForm = () => {
+    const SignUpForm = () => {
         const { loggedIn, setLoggedIn } = useSession();
         const navigate = useNavigate();
 
         const form = useForm({
-            resolver: zodResolver(loginSchema),
+            resolver: zodResolver(signUpchema),
             defaultValues: {
                 email: "",
                 username: "",
@@ -54,7 +54,7 @@ const loginSchema = z.object({
 
         const onSubmit = async (data: any) => {
             console.log(data);
-            const res = await axios.post("http://localhost:3001/login", data);
+            const res = await axios.post("http://localhost:3001/signup", data);
             console.log(res.data);
             res.data && setLoggedIn(true);
         };
@@ -63,16 +63,16 @@ const loginSchema = z.object({
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="h-full px-6 pb-6 flex flex-col justify-start gap-6"
+                    className="h-full w-full px-6 pb-6 flex flex-col justify-start items-start gap-6"
                 >
                     <FormField
                         control={form.control}
                         name={"email"}
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-1/2">
                                 <FormLabel htmlFor="email">Email</FormLabel>
                                 <FormControl>
-                                    <Input id="email" {...field} placeholder="Email" />
+                                    <Input id="email"  {...field} placeholder="Email" />
                                 </FormControl>
                                 <FormMessage>{form.formState.errors.email?.message}</FormMessage>
                                 <FormDescription></FormDescription>
@@ -83,7 +83,7 @@ const loginSchema = z.object({
                         control={form.control}
                         name={"username"}
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-1/2">
                                 <FormLabel htmlFor="username">Username</FormLabel>
                                 <FormControl>
                                     <Input id="username" {...field} placeholder="Username" />
@@ -97,7 +97,7 @@ const loginSchema = z.object({
                         control={form.control}
                         name={"password"}
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="w-1/2">
                                 <FormLabel htmlFor="password">Password</FormLabel>
                                 <FormControl>
                                     <Input id="password" {...field} placeholder="Password" />
@@ -117,4 +117,4 @@ const loginSchema = z.object({
         )
     };
 
-    export default LoginForm;
+    export default SignUpForm;
