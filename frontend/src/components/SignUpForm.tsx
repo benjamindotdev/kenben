@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "@/context/SessionContext";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 type signUpFormProps = {
     email: string;
@@ -49,10 +50,6 @@ const signUpchema = z.object({
                 navigate("/");
             }
         }, [loggedIn]);
-
-        // useEffect(() => {
-        //     form.reset();
-        // }), [form];
 
         useEffect(() => {
             console.log(form.formState.errors);
@@ -120,11 +117,14 @@ const signUpchema = z.object({
                             </FormItem>
                         )}
                     />
-                    <Button
-                        type="submit"
-                    >
-                        Login
+                    <div className="flex flex-row justify-start gap-6 items-center">
+                        <Button
+                            type="submit"
+                        >
+                            SignUp
                         </Button>
+                        <Link to="/login">or Login</Link>
+                    </div>
                 </form>
             </Form>
         )
