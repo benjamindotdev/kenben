@@ -23,7 +23,7 @@ import { useSession } from "@/context/SessionContext";
 
 const Navbar = () => {
 
-  const { logOut } = useSession();
+  const { logOut, username } = useSession();
   const navigate = useNavigate();
   const handleLogOut = () => {
     logOut();
@@ -32,10 +32,9 @@ const Navbar = () => {
 
   return (
     <nav className="w-[100%] h-[10vh] px-6 flex flex-row justify-between items-center opacity-50 hover:opacity-100 transition-all ease-in-out duration-1000">
-      <h1 className="navbar__title">けんべん (kenben)</h1>
-
       <div className="flex flex-row gap-6 items-center">
-        <Sheet>
+      <h1 className="navbar__title">けんべん (kenben)</h1>
+      <Sheet>
           <SheetTrigger>About</SheetTrigger>
           <SheetContent side={"top"} className="h-[50vw] bg-slate-900 pt-8">
             <SheetHeader className="h-full">
@@ -79,7 +78,11 @@ const Navbar = () => {
             <SheetFooter></SheetFooter>
           </SheetContent>
         </Sheet>
+      </div>
 
+      <div className="flex flex-row gap-6 items-center">
+        
+      <h1>Hey, {username}</h1>
       <Link to="/account">Account</Link>
       <Button onClick={handleLogOut}>Log out</Button>
       </div>
