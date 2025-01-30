@@ -27,7 +27,6 @@ app.post("/signup", async (req, res) => {
     return;
   }
 
-  
   console.log(user)
   const { email, username, password } = user;
   if (await prisma.user.findFirst({where: {email}})) {
