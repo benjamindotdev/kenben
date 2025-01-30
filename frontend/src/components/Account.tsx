@@ -5,7 +5,7 @@ const Account = () => {
     const { loggedIn, email, username } = useSession();
 
     return (
-        <div>
+        <>
             {loggedIn ? (
                 <div>
                     <h1>{username}</h1>
@@ -14,7 +14,7 @@ const Account = () => {
             ) : (
                 <h1>Not logged in</h1>
             )}
-        </div>
+        </>
     );
 }
 
