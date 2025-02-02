@@ -6,11 +6,8 @@ import EditItemForm from "./EditItemForm";
 import SignUp from "./SignUp";
 import LogIn from "./LogIn";
 import Account from "./Account";
-import { useSession } from "../context/SessionContext";
 
 const Content = () => {
-
-  const {loggedIn} = useSession();
 
   return (
     <div className="w-[65%]">
