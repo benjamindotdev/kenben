@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSession } from "@/context/SessionContext"
 import AccountRow from "./AccountRow";
-import axios from "axios";
 
 const Account = () => {
 
@@ -23,9 +22,8 @@ const Account = () => {
         e.preventDefault();
         try {
             setNewUsername(e.currentTarget.value);
-            editUsernameRequest(newUsername);
         } catch (error) {
-            setUsernameError(false);
+            setUsernameError(true);
             console.log(error);
         }
     }
@@ -33,12 +31,10 @@ const Account = () => {
     const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:3001/${username}/username`, {
-                username: newUsername
-            });
-            res.data && setNewUsername("");
+            editUsernameRequest(newUsername);
+            setNewUsername("");
         } catch (error) {
-            setUsernameError(false);
+            setUsernameError(true);
             console.log(error);
         }
     }
@@ -47,9 +43,8 @@ const Account = () => {
         e.preventDefault();
         try {
             setNewEmail(e.currentTarget.value);
-            editEmailRequest(newEmail);
         } catch (error) {
-            setEmailError(false);
+            setEmailError(true);
             console.log(error);
         }
     }
@@ -57,12 +52,10 @@ const Account = () => {
     const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:3001/${username}/email`, {
-                email: newEmail
-            });
-            res.data && setNewEmail("");
+            editEmailRequest(newEmail);
+            setNewEmail("");
         } catch (error) {
-            setEmailError(false);
+            setEmailError(true);
             console.log(error);
         }
     }
@@ -72,7 +65,7 @@ const Account = () => {
         try {
             setNewPassword(e.currentTarget.value);
         } catch (error) {
-            setPasswordError(false);
+            setPasswordError(true);
             console.log(error);
         }
     }
@@ -80,10 +73,8 @@ const Account = () => {
     const handlePasswordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:3001/${username}/password`, {
-                password: newPassword
-            });
-            res.data && setNewPassword("");
+            //editPasswordRequest(newPassword);
+            //res.data && setNewPassword("");
         } catch (error) {
             setPasswordError(false);
             console.log(error);
