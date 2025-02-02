@@ -86,7 +86,7 @@ await prisma.user.update({
     },
 });
 
-res.json({ token, username: user.username });
+res.json({ token, username: user.username, email: user.email });
 });
 
 export default authRouter;
