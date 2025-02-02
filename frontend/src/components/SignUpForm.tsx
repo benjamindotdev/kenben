@@ -73,7 +73,7 @@ const signUpchema = z.object({
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="h-full w-full px-6 pb-6 flex flex-col justify-start items-start gap-6"
+                    className="h-full w-full px-6 pb-6 flex flex-col justify-center items-start gap-6"
                 >
                     <FormField
                         control={form.control}
@@ -121,7 +121,7 @@ const signUpchema = z.object({
                         <Button
                             type="submit"
                         >
-                            SignUp
+                            Sign Up
                         </Button>
                         <Link to="/login">or Login</Link>
                     </div>

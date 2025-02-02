@@ -5,10 +5,7 @@ import {
   useEffect,
   Dispatch,
 } from "react";
-<<<<<<< HEAD
-=======
 import axios from "axios";
->>>>>>> temp
 import data from "../data/data.json";
 import type { Item } from "../types/Item";
 
@@ -32,10 +29,6 @@ type Action =
   | { type: "SET_DONE"; payload: Item[] }
   | { type: "SET_BACKLOG"; payload: Item[] };
 
-<<<<<<< HEAD
-const initialState: State = {
-  items: data.map((item) => ({ ...item })),
-=======
   // const data = await axios.get(`http://localhost:3001/items`,
   //   {
   //     headers:
@@ -54,7 +47,6 @@ const initialState: State = {
 
 const initialState: State = {
   items: data.map((item: any) => ({ ...item })),
->>>>>>> temp
   toDos: [],
   inProgress: [],
   done: [],

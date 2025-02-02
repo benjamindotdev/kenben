@@ -27,7 +27,7 @@ const ContentFullPage = () => {
 
   return (
     <Card className="flex flex-col gap-6">
-      <CardHeader className="flex flex-row justify-center align-middle">
+      <CardHeader className="flex flex-col justify-center align-middle">
         <CardTitle>{item?.title}</CardTitle>
         <div className="flex flex-row justify-start align-baseline gap-2">
           <p className="text-lg">
