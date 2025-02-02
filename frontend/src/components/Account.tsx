@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSession } from "@/context/SessionContext"
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import AccountRow from "./AccountRow";
 
 const Account = () => {
