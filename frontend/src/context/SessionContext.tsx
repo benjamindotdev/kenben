@@ -6,9 +6,9 @@ type SessionContextType = {
     setLoggedIn: (value: boolean) => void;
     logIn: (data: loginFormProps) => Promise<{ username: string, email: string }>;
     email: string;
-    editEmail: (newEmail: string) => Promise<boolean>;
+    editEmailRequest: (newEmail: string) => Promise<boolean>;
     username: string;
-    editUsername: (newUsername: string) => Promise<boolean>;
+    editUsernameRequest: (newUsername: string) => Promise<boolean>;
     logOut: () => boolean;
 };
 
@@ -62,7 +62,7 @@ const SessionProvider = ({ children }: any) => {
         }
     }
 
-    const editEmail = async (newEmail: string) => {
+    const editEmailRequest = async (newEmail: string) => {
       try {
           const response = await axios.put(`http://localhost:3001/${username}/email`, {
           email: newEmail
@@ -75,7 +75,7 @@ const SessionProvider = ({ children }: any) => {
       }
   }
 
-  const editUsername = async (newUsername: string) => {
+  const editUsernameRequest = async (newUsername: string) => {
     try {
         const response = await axios.put(`http://localhost:3001/${username}/username`, {
         username: newUsername
@@ -97,7 +97,7 @@ const SessionProvider = ({ children }: any) => {
 };
 
   return (
-    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, email, editEmail, username, editUsername, logOut }}>
+    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, email, editUsernameRequest, username, editUsername, logOut }}>
       {children}
     </sessionContext.Provider>
   );
