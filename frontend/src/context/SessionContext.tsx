@@ -1,13 +1,14 @@
 import { useState, useContext, createContext, useEffect } from "react";
 import axios from 'axios'
-import { set } from "date-fns";
 
 type SessionContextType = {
     loggedIn: boolean;
     setLoggedIn: (value: boolean) => void;
     logIn: (data: loginFormProps) => Promise<{ username: string, email: string }>;
-    username: string;
     email: string;
+    editEmail: (newEmail: string) => Promise<boolean>;
+    username: string;
+    editUsername: (newUsername: string) => Promise<boolean>;
     logOut: () => boolean;
 };
 
@@ -31,6 +32,18 @@ const SessionProvider = ({ children }: any) => {
         }
     }, []);
 
+    useEffect(() => {
+        console.log("Logged in: ", loggedIn);
+    }, [loggedIn]);
+
+    useEffect(() => {
+      console.log("Username:",username);
+  }, [username]);
+
+  useEffect(() => {
+      console.log("Email:",email);
+  }, [email]);
+
     const logIn = async (data: loginFormProps) => {
 
         try {
@@ -49,14 +62,42 @@ const SessionProvider = ({ children }: any) => {
         }
     }
 
-    const logOut = () => {
-        localStorage.removeItem("token");
-        setLoggedIn(false);
-        return true;
-    };
+    const editEmail = async (newEmail: string) => {
+      try {
+          const response = await axios.put(`http://localhost:3001/${username}/email`, {
+          email: newEmail
+      });
+      setEmail(newEmail);
+      return true;
+      } catch (error) {
+          console.log(error);
+          return false;
+      }
+  }
+
+  const editUsername = async (newUsername: string) => {
+    try {
+        const response = await axios.put(`http://localhost:3001/${username}/username`, {
+        username: newUsername
+    });
+    setUsername(newUsername);
+    return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    setUsername("");
+    setEmail("");
+    setLoggedIn(false);
+    return true;
+};
 
   return (
-    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, username, email, logOut }}>
+    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, email, editEmail, username, editUsername, logOut }}>
       {children}
     </sessionContext.Provider>
   );
