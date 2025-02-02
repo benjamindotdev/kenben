@@ -1,16 +1,61 @@
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
+import axios from 'axios'
+import { set } from "date-fns";
 
 type SessionContextType = {
-  loggedIn: boolean;
-  setLoggedIn: (value: boolean) => void;
+    loggedIn: boolean;
+    setLoggedIn: (value: boolean) => void;
+    logIn: (data: loginFormProps) => void;
+    username: string;
+    email: string;
+    logOut: () => void;
+};
+
+type loginFormProps = {
+    email: string;
+    username: string;
+    password: string;
 };
 
 const sessionContext = createContext<SessionContextType | undefined>(undefined);
 
 const SessionProvider = ({ children }: any) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setLoggedIn(true);
+            console.log("logged in");
+        }
+    }, []);
+
+    const logIn = async (data: loginFormProps) => {
+
+        try {
+            const response = await axios.post("http://localhost:3001/login", {
+                email: data.email,
+                username: data.username,
+                password: data.password
+            });
+            localStorage.setItem("token", response.data.token);
+            setUsername(response.data.username);
+            setEmail(response.data.email);
+            setLoggedIn(true);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const logOut = () => {
+        localStorage.removeItem("token");
+        setLoggedIn(false);
+    };
+
   return (
-    <sessionContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, username, email, logOut }}>
       {children}
     </sessionContext.Provider>
   );
@@ -23,5 +68,7 @@ const useSession = () => {
   }
   return context;
 };
+
+
 
 export { SessionProvider, useSession };
