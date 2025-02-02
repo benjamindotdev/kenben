@@ -51,28 +51,22 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  if (!req.body.email && !req.body.username) {
-    res.status(400).json({ error: "Bad request" });
+  if (!req.body.email) {
+    res.status(400).json({ error: "Bad request, no email" });
     return;
   }
 
   if (!req.body.password) {
-    res.status(400).json({ error: "Bad request" });
+    res.status(400).json({ error: "Bad request, no password" });
     return;
   }
 
-  const { email, username, password } = req.body;
+  const { email, password } = req.body;
   const user = await prisma.user.findFirst({
-    where: {
-      OR: [
-        {
-          email,
-        },
-        {
-          username,
-        },
-      ],
-    },
+    where:
+      {
+        email,
+      },
   });
 
   if (!user) {
@@ -83,15 +77,15 @@ app.post("/login", async (req, res) => {
   const passwordMatch = await comparePassword(password, user.password);
 
   if (!passwordMatch) {
-    res.status(401).json({ error: "Unauthorized" });
+    res.status(401).json({ error: "Unauthorized, password incorrect" });
     return;
   }
 
-  const token = generateToken({ username: user.username });
+  const token = generateToken({ email: user.email });
 
   await prisma.user.update({
     where: {
-      username: user.username,
+      email: user.email,
     },
     data: {
       token,
