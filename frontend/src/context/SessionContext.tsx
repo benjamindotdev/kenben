@@ -8,7 +8,7 @@ type SessionContextType = {
     logIn: (data: loginFormProps) => void;
     username: string;
     email: string;
-    logOut: () => void;
+    logOut: () => boolean;
 };
 
 type loginFormProps = {
@@ -50,6 +50,7 @@ const SessionProvider = ({ children }: any) => {
     const logOut = () => {
         localStorage.removeItem("token");
         setLoggedIn(false);
+        return true;
     };
 
   return (
