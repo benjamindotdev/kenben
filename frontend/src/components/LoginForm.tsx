@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "@/context/SessionContext";
 import { Link } from "react-router-dom";
@@ -35,6 +35,7 @@ const loginSchema = z.object({
 });
 
     const LoginForm = () => {
+        const [error, setError] = useState("");
         const { loggedIn, logIn } = useSession();
         const navigate = useNavigate();
 
@@ -56,6 +57,10 @@ const loginSchema = z.object({
             console.log(form.formState.errors);
         }, [form.formState.errors]);
 
+        useEffect(() => {
+            setError('');
+        }, [form.formState.isSubmitted, form.watch('email'), form.watch('password')]);
+
         const onSubmit = async (data: loginFormProps) => {
             console.log(data);
             try {
@@ -63,8 +68,11 @@ const loginSchema = z.object({
                 console.log(response);
                 if (response.username !== "" && response.email !== "") {
                     navigate(`/${response.username}`);
+                } else {
+                    setError("Invalid email or password");
                 }
-            } catch (error) {
+            } catch (error: any) {
+                setError(form.formState.errors.email?.message || error.message);
                 console.log(error);
             }
         };
@@ -110,6 +118,9 @@ const loginSchema = z.object({
                             Log In
                         </Button>
                         <Link to="/signup">or Sign Up</Link>
+                        {
+                            error && <p className="text-red-500 animate-pulse">{error}</p>
+                        }
                     </div>
                 </form>
             </Form>
