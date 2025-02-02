@@ -16,8 +16,6 @@ app.use(cors());
 app.use("/", authRouter);
 app.use("/:username", itemsRouter);
 
-
-
 app.get("/:username/:itemId", async (req, res) => {
   const { username, itemId } = req.params;
   const token = req.headers.authorization?.split(" ")[1];
