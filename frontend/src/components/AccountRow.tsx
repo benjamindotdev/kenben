@@ -6,6 +6,7 @@ type AccountRowProps = {
     value: string
     newValue: string;
     handleNewValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleNewValueSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     editingValue: boolean;
     setEditValue: (value: boolean) => void;
     valueError: boolean;
@@ -16,6 +17,7 @@ const AccountRow: React.FC<AccountRowProps> = ({
     value,
     newValue,
     handleNewValueChange,
+    handleNewValueSubmit,
     editingValue,
     setEditValue,
     valueError
