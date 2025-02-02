@@ -5,7 +5,7 @@ import { set } from "date-fns";
 type SessionContextType = {
     loggedIn: boolean;
     setLoggedIn: (value: boolean) => void;
-    logIn: (data: loginFormProps) => void;
+    logIn: (data: loginFormProps) => Promise<{ username: string, email: string }>;
     username: string;
     email: string;
     logOut: () => boolean;
@@ -42,8 +42,10 @@ const SessionProvider = ({ children }: any) => {
             setUsername(response.data.username);
             setEmail(response.data.email);
             setLoggedIn(true);
+            return { username: response.data.username, email: response.data.email };
         } catch (error) {
-            console.error(error);
+            console.log(error);
+            return { username: "", email: "" };
         }
     }
 
@@ -67,7 +69,5 @@ const useSession = () => {
   }
   return context;
 };
-
-
 
 export { SessionProvider, useSession };
