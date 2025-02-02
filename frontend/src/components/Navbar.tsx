@@ -79,12 +79,10 @@ const Navbar = () => {
           </SheetContent>
         </Sheet>
       </div>
-
       <div className="flex flex-row gap-6 items-center">
-        
-      <h1>Hey, {username}</h1>
-      <Link to="/account">Account</Link>
-      <Button onClick={handleLogOut}>Log out</Button>
+        <h1>Hey, {username}</h1>
+        <Link to="/account">Account</Link>
+        <Button onClick={handleLogOut}>Log out</Button>
       </div>
     </nav>
   );
