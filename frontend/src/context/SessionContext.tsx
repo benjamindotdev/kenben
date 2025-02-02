@@ -97,7 +97,7 @@ const SessionProvider = ({ children }: any) => {
 };
 
   return (
-    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, email, editUsernameRequest, username, editUsername, logOut }}>
+    <sessionContext.Provider value={{ loggedIn, setLoggedIn, logIn, email, editUsernameRequest, username, editEmailRequest, logOut }}>
       {children}
     </sessionContext.Provider>
   );
