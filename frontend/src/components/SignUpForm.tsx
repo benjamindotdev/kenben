@@ -121,7 +121,7 @@ const signUpchema = z.object({
                         <Button
                             type="submit"
                         >
-                            SignUp
+                            Sign Up
                         </Button>
                         <Link to="/login">or Login</Link>
                     </div>
