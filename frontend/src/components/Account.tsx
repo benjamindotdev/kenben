@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSession } from "@/context/SessionContext"
 import AccountRow from "./AccountRow";
+import axios from "axios";
 
 const Account = () => {
 
-    const { email, username, editEmail, editUsername } = useSession();
+    const { email, username, editEmailRequest, editUsernameRequest } = useSession();
 
     const [editingUsername, setEditUsername] = useState(false);
     const [editingEmail, setEditEmail] = useState(false);
@@ -18,35 +19,84 @@ const Account = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
-    const handleUsername = async (e: React.FormEvent<HTMLInputElement>) => {
+    const handleUsernameChange = async (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         try {
             setNewUsername(e.currentTarget.value);
-            editUsername(newUsername);
+            editUsernameRequest(newUsername);
         } catch (error) {
             setUsernameError(false);
             console.log(error);
         }
     }
 
-    const handleEmail = async (e: React.FormEvent<HTMLInputElement>) => {
+    const handleUsernameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const res = await axios.put(`http://localhost:3001/${username}/username`, {
+                username: newUsername
+            });
+            res.data && setNewUsername("");
+        } catch (error) {
+            setUsernameError(false);
+            console.log(error);
+        }
+    }
+
+    const handleEmailChange = async (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         try {
             setNewEmail(e.currentTarget.value);
-            editEmail(newEmail);
+            editEmailRequest(newEmail);
         } catch (error) {
             setEmailError(false);
             console.log(error);
         }
     }
 
+    const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const res = await axios.put(`http://localhost:3001/${username}/email`, {
+                email: newEmail
+            });
+            res.data && setNewEmail("");
+        } catch (error) {
+            setEmailError(false);
+            console.log(error);
+        }
+    }
+
+    const handlePasswordChange = async (e: React.FormEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        try {
+            setNewPassword(e.currentTarget.value);
+        } catch (error) {
+            setPasswordError(false);
+            console.log(error);
+        }
+    }
+
+    const handlePasswordSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const res = await axios.put(`http://localhost:3001/${username}/password`, {
+                password: newPassword
+            });
+            res.data && setNewPassword("");
+        } catch (error) {
+            setPasswordError(false);
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         editingUsername && console.log("Editing username");
-    }, [editUsername]);
+    }, [editingUsername]);
 
     useEffect(() => {
         editingEmail && console.log("Editing email");
-    }, [editEmail]);
+    }, [editingEmail]);
 
     useEffect(() => {
         editPassword && console.log("Editing password");
@@ -71,7 +121,8 @@ const Account = () => {
                 valueName="Username"
                 value={username}
                 newValue={newUsername}
-                handleNewValueChange={handleUsername}
+                handleNewValueChange={handleUsernameChange}
+                handleNewValueSubmit={handleUsernameSubmit}
                 editingValue={editingUsername}
                 setEditValue={setEditUsername}
                 valueError={usernameError}
@@ -80,7 +131,8 @@ const Account = () => {
                 valueName="Email"
                 value={email}
                 newValue={newEmail}
-                handleNewValueChange={handleEmail}
+                handleNewValueChange={handleEmailChange}
+                handleNewValueSubmit={handleEmailSubmit}
                 editingValue={editingEmail}
                 setEditValue={setEditEmail}
                 valueError={emailError}
@@ -89,7 +141,8 @@ const Account = () => {
                 valueName="Password"
                 value="********"
                 newValue={newPassword}
-                handleNewValueChange={() => setNewPassword}
+                handleNewValueChange={handlePasswordChange}
+                handleNewValueSubmit={handlePasswordSubmit}
                 editingValue={editPassword}
                 setEditValue={setEditPassword}
                 valueError={passwordError}
