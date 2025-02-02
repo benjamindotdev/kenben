@@ -13,7 +13,6 @@ type SessionContextType = {
 
 type loginFormProps = {
     email: string;
-    username: string;
     password: string;
 };
 
@@ -37,7 +36,6 @@ const SessionProvider = ({ children }: any) => {
         try {
             const response = await axios.post("http://localhost:3001/login", {
                 email: data.email,
-                username: data.username,
                 password: data.password
             });
             localStorage.setItem("token", response.data.token);
