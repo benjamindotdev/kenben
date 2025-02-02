@@ -4,8 +4,8 @@ import { verifyToken } from '../../utils/jwt';
 
 const itemsRouter = express.Router();
 
-itemsRouter.get("/:username", async (req, res) => {
-const { username } = req.params;
+itemsRouter.get("/", async (req, res) => {
+const { username } = req.body;
 const token = req.headers.authorization?.split(" ")[1];
 
 if (!token) {
