@@ -22,6 +22,11 @@ type loginFormProps = {
     password: string;
 };
 
+type loginFormResponse = {
+    username: string;
+    email: string;
+};
+
 const loginSchema = z.object({
     email: z.string().email({
         message: "Please enter a valid email address",
@@ -54,10 +59,13 @@ const loginSchema = z.object({
         const onSubmit = async (data: loginFormProps) => {
             console.log(data);
             try {
-                logIn(data);
-                navigate("/");
+                const response = await logIn(data);
+                console.log(response);
+                if (response.username !== "" && response.email !== "") {
+                    navigate(`/${response.username}`);
+                }
             } catch (error) {
-                console.error(error);
+                console.log(error);
             }
         };
 
