@@ -4,7 +4,6 @@ import authRouter from "./routes/auth";
 import itemsRouter from "./routes/items";
 import { getItemsByStatus, ItemStatus } from "./utils/getItemsByStatus";
 import { verifyToken } from "./utils/jwt";
-
 import cors from "cors";
 
 const app = express();
