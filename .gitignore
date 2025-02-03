@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.prettierrc
+.gitignore
 
 frontend/node_modules
 frontend/dist
