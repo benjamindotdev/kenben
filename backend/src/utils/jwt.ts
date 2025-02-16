@@ -13,7 +13,7 @@ export const generateToken = (
 export const verifyToken = (token: string) => {
   try {
     return jwt.verify(token, secretKey);
-  } catch (error) {
-    throw new Error("Invalid token");
+  } catch (error: any) {
+    return error.message;
   }
 };
