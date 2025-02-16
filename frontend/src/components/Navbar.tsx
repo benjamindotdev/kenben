@@ -20,6 +20,7 @@ import SocialIcons from "./SocialIcons";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "@/context/SessionContext";
+import { User } from 'lucide-react';
 
 const Navbar = () => {
 
@@ -83,7 +84,7 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-6 items-center">
           <h1>Hey, {username}</h1>
-          <Link to="/account">Account</Link>
+          <Link to={`/${username}/account`}><User /></Link>
           <Button onClick={handleLogOut}>Log out</Button>
         </div>
       </nav>
