@@ -18,18 +18,13 @@ import { useSession } from "@/context/SessionContext";
 import { Link } from "react-router-dom";
 
 type loginFormProps = {
-    email: string;
+    username: string;
     password: string;
 };
 
-type loginFormResponse = {
-    username: string;
-    email: string;
-};
-
 const loginSchema = z.object({
-    email: z.string().email({
-        message: "Please enter a valid email address",
+    username: z.string({
+        message: "Please enter your username",
     }),
     password: z.string().min(5, {message: "Password must be at least 5 characters"})
 });
@@ -42,7 +37,7 @@ const loginSchema = z.object({
         const form = useForm({
             resolver: zodResolver(loginSchema),
             defaultValues: {
-                email: "",
+                username: "",
                 password: ""
             }
         });
@@ -59,20 +54,25 @@ const loginSchema = z.object({
 
         useEffect(() => {
             setError('');
-        }, [form.formState.isSubmitted, form.watch('email'), form.watch('password')]);
+        }, [form.formState.isSubmitted, form.watch('username'), form.watch('password')]);
+
+        useEffect(() => {
+            console.log(form.watch('username'));
+        }, [form.watch('username')]);
+
+        useEffect(() => {
+            console.log(form.watch('password'));
+        }, [form.watch('password')]);
+
 
         const onSubmit = async (data: loginFormProps) => {
-            console.log(data);
+            console.log("The data is ", data);
             try {
                 const response = await logIn(data);
                 console.log(response);
-                if (response.username !== "" && response.email !== "") {
-                    navigate(`/${response.username}`);
-                } else {
-                    setError("Invalid email or password");
-                }
+                navigate(`/${response.username}`);
             } catch (error: any) {
-                setError(form.formState.errors.email?.message || error.message);
+                setError(form.formState.errors.username?.message || error.message);
                 console.log(error);
             }
         };
@@ -85,14 +85,14 @@ const loginSchema = z.object({
                 >
                     <FormField
                         control={form.control}
-                        name={"email"}
+                        name={"username"}
                         render={({ field }) => (
                             <FormItem className="w-1/2">
-                                <FormLabel htmlFor="email">Email</FormLabel>
+                                <FormLabel htmlFor="username">Username</FormLabel>
                                 <FormControl>
-                                    <Input id="email"  {...field} placeholder="Email" />
+                                    <Input id="username"  {...field} placeholder="Username" />
                                 </FormControl>
-                                <FormMessage>{String(form.formState.errors.email?.message || '')}</FormMessage>
+                                <FormMessage>{String(form.formState.errors.username?.message || '')}</FormMessage>
                                 <FormDescription></FormDescription>
                             </FormItem>
                         )}
