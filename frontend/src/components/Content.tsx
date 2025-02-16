@@ -12,6 +12,7 @@ const Content = () => {
   return (
     <div className="w-[65%]">
       <Routes>
+        <Route path="/" element={<LogIn />} />
         <Route path="/:username" element={<ContentList />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
