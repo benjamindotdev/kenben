@@ -43,7 +43,7 @@ const getItemsByStatus = async (
   const items = await prisma.item.findMany({
     where: {
       status,
-      assignee: user.username,
+      assignee: String(user.username),
     },
   });
 
