@@ -4,18 +4,15 @@ import AccountRow from "./AccountRow";
 
 const Account = () => {
 
-    const { email, username, editEmailRequest, editUsernameRequest } = useSession();
+    const { username, editUsernameRequest } = useSession();
 
     const [editingUsername, setEditUsername] = useState(false);
-    const [editingEmail, setEditEmail] = useState(false);
     const [editPassword, setEditPassword] = useState(false);
 
     const [newUsername, setNewUsername] = useState("");
-    const [newEmail, setNewEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");
 
     const [usernameError, setUsernameError] = useState(false);
-    const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
     const handleUsernameChange = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -35,27 +32,6 @@ const Account = () => {
             setNewUsername("");
         } catch (error) {
             setUsernameError(true);
-            console.log(error);
-        }
-    }
-
-    const handleEmailChange = async (e: React.FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        try {
-            setNewEmail(e.currentTarget.value);
-        } catch (error) {
-            setEmailError(true);
-            console.log(error);
-        }
-    }
-
-    const handleEmailSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        try {
-            editEmailRequest(newEmail);
-            setNewEmail("");
-        } catch (error) {
-            setEmailError(true);
             console.log(error);
         }
     }
@@ -86,20 +62,12 @@ const Account = () => {
     }, [editingUsername]);
 
     useEffect(() => {
-        editingEmail && console.log("Editing email");
-    }, [editingEmail]);
-
-    useEffect(() => {
         editPassword && console.log("Editing password");
     }, [editPassword]);
 
     useEffect(() => {
         newUsername !== "" && console.log("New username:",newUsername);
     }, [newUsername]);
-
-    useEffect(() => {
-        newEmail !== "" && console.log("New email:",newEmail);
-    }, [newEmail]);
 
     useEffect(() => {
         newPassword !== "" && console.log("New password:",newPassword);
@@ -117,16 +85,6 @@ const Account = () => {
                 editingValue={editingUsername}
                 setEditValue={setEditUsername}
                 valueError={usernameError}
-            />
-            <AccountRow
-                valueName="Email"
-                value={email}
-                newValue={newEmail}
-                handleNewValueChange={handleEmailChange}
-                handleNewValueSubmit={handleEmailSubmit}
-                editingValue={editingEmail}
-                setEditValue={setEditEmail}
-                valueError={emailError}
             />
             <AccountRow
                 valueName="Password"
